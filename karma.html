@@ -69,6 +69,65 @@ h2 {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+.karma-animation {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 1.5rem;
+    height: 80px;
+    position: relative;
+}
+.coin {
+    font-size: 2.5rem;
+    animation: coinJump 1.2s infinite;
+    filter: drop-shadow(0 2px 8px #ffd70088);
+}
+.coin:nth-child(2) { animation-delay: 0.3s; }
+.coin:nth-child(3) { animation-delay: 0.6s; }
+@keyframes coinJump {
+    0%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-30px) scale(1.1); }
+    60% { transform: translateY(-10px) scale(0.95); }
+}
+.karma-score-animated {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #009688;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    animation: windBlow 2.2s infinite alternate;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 2px;
+    text-shadow: 0 0 16px #4db6ac, 0 0 8px #00796b;
+}
+@keyframes windBlow {
+    0% { transform: translateX(0) rotate(-3deg); opacity: 1; }
+    30% { transform: translateX(10px) rotate(2deg); opacity: 0.95; }
+    60% { transform: translateX(-8px) rotate(-2deg); opacity: 1; }
+    100% { transform: translateX(0) rotate(2deg); opacity: 0.98; }
+}
+.karma-rules {
+    background: #e0f7fa;
+    border-left: 5px solid #009688;
+    border-radius: 0 1rem 1rem 0;
+    padding: 1.2rem 2rem;
+    margin-top: 2rem;
+    color: #00796b;
+    font-size: 1.05rem;
+    box-shadow: 0 2px 8px rgba(0,150,136,0.07);
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.karma-rules ul {
+    margin: 0.5rem 0 0 1.2rem;
+    padding: 0;
+}
+.karma-rules li {
+    margin-bottom: 0.5rem;
+}
 </style>
 </head>
 <body>
@@ -82,8 +141,22 @@ h2 {
 <div class="main">
 <h2>Your Karma</h2>
 <div class="karma-box">
-    <div class="karma-score">120</div>
+    <div class="karma-animation">
+        <span class="coin" style="animation-delay:0s;">🪙</span>
+        <span class="coin" style="animation-delay:0.3s;">🪙</span>
+        <span class="coin" style="animation-delay:0.6s;">🪙</span>
+    </div>
+    <div class="karma-score-animated">120</div>
     <div class="karma-desc">Thank you for helping others! Your positive actions are making a difference.</div>
+    <div class="karma-rules">
+        <strong>Karma Points Rules:</strong>
+        <ul>
+            <li>+10 for each helpful message sent</li>
+            <li>+20 for verified assistance</li>
+            <li>-5 for inappropriate behavior</li>
+            <li>Special badges for top helpers!</li>
+        </ul>
+    </div>
 </div>
 </div>
 </body>
