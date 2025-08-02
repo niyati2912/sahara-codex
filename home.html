@@ -4,114 +4,356 @@
 <meta charset="UTF-8" />
 <title>Home - SAHARA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    height: 100vh;
-    background: linear-gradient(120deg, #e0f7fa 0%, #e8f5e9 100%);
+:root {
+--teal:#00796b;
+--teal-light:#4db6ac;
+--danger:#d32f2f;
+--danger-light:#f44336;
+--radius:1.2rem;
+--shadow:0 20px 50px -10px rgba(0,121,107,0.15);
+--transition:.35s cubic-bezier(.25,.8,.25,1);
+--bg-start:#e0f7fa;
+--bg-end:#e8f5e9;
+font-family: 'Poppins', sans-serif;
+color:#2f4f5f;
 }
-.sidebar {
-    width: 250px;
-    background: linear-gradient(135deg, #00796b 60%, #4db6ac 100%);
-    color: white;
-    padding: 2rem 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    box-shadow: 2px 0 12px rgba(0, 121, 107, 0.08);
-    z-index: 2;
+*{box-sizing:border-box;}
+body{
+margin:0;
+min-height:100vh;
+background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+display:flex;
+flex-direction: row;
+overflow: hidden;
 }
-.sidebar a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: color 0.3s, background 0.3s, transform 0.2s;
-    border-radius: 8px;
-    padding: 0.7rem 1rem;
-    margin: 0 -1rem;
+.sidebar{
+width:250px;
+background: linear-gradient(135deg, var(--teal) 60%, var(--teal-light) 100%);
+color:white;
+padding:2rem 1rem;
+display:flex;
+flex-direction:column;
+gap:1rem;
+box-shadow:2px 0 16px rgba(0,121,107,0.16);
+position:relative;
+z-index:2;
 }
-.sidebar a:hover, .sidebar a.active {
-    background: rgba(255,255,255,0.12);
-    color: #e0f2f1;
-    transform: translateX(8px) scale(1.05);
+.sidebar a{
+color:white;
+text-decoration:none;
+font-weight:600;
+font-size:1rem;
+padding:.75rem 1rem;
+border-radius:8px;
+transition: var(--transition);
+display:block;
 }
-.main {
-    flex: 1;
-    padding: 3rem 4rem;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.sidebar a.active, .sidebar a:hover{
+background:rgba(255,255,255,0.12);
+transform:translateX(4px);
 }
-.logo {
-    width: 120px;
-    margin-bottom: 2rem;
+.main{
+flex:1;
+padding:2.5rem 3rem;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:1.5rem;
+position:relative;
 }
-h1 {
-    color: #00796b;
-    margin-bottom: 2rem;
-    font-size: 2.2rem;
-    font-weight: 600;
+.logo{
+width: 130px;
+margin-bottom: .5rem;
 }
-.sos-section {
-    background: #fff;
-    border-radius: 1.2rem;
-    box-shadow: 0 8px 32px rgba(0, 121, 107, 0.08), 0 1.5px 8px rgba(0,0,0,0.03);
-    padding: 2.5rem 2.5rem 2rem 2.5rem;
-    text-align: center;
-    max-width: 400px;
-    animation: fadeIn 1s ease-in-out;
+.hero{
+background:#ffffff;
+width:100%;
+max-width:780px;
+border-radius: var(--radius);
+padding:2rem 2.5rem;
+position:relative;
+box-shadow: var(--shadow);
+display:flex;
+flex-wrap: wrap;
+gap:1.5rem;
+align-items:center;
+overflow:hidden;
 }
-.sos-title {
-    color: #00796b;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
+.hero::before{
+content:"";
+position:absolute;
+top:-40px;
+right:-60px;
+width:160px;
+height:160px;
+background:rgba(77,182,172,0.15);
+border-radius:50%;
+filter: blur(60px);
 }
-.sos-desc {
-    color: #555;
-    margin-bottom: 1.5rem;
+.hero-content{
+flex:1 1 300px;
+min-width:250px;
 }
-.sos-btn {
-    background: linear-gradient(90deg, #00796b 60%, #4db6ac 100%);
-    color: white;
-    font-weight: 600;
-    border: none;
-    border-radius: 10px;
-    padding: 0.9rem 2.2rem;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
+.hero-title{
+margin:0;
+font-size:2.4rem;
+font-weight:700;
+color: var(--teal);
+line-height:1.1;
 }
-.sos-btn:hover {
-    background: linear-gradient(90deg, #4db6ac 60%, #00796b 100%);
-    transform: translateY(-2px) scale(1.03);
+.hero-sub{
+margin:10px 0 1rem;
+font-size:1rem;
+color:#556b81;
 }
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.cta-group{
+display:flex;
+flex-wrap:wrap;
+gap:1rem;
+margin-top:1rem;
+}
+.sos-btn{
+position:relative;
+background: linear-gradient(90deg, var(--danger) 60%, var(--danger-light) 100%);
+color:white;
+font-weight:700;
+border:none;
+border-radius:16px;
+padding:1.2rem 2.8rem;
+font-size:1.3rem;
+cursor:pointer;
+display:flex;
+align-items:center;
+gap:10px;
+transition: var(--transition);
+box-shadow:0 16px 48px rgba(211,47,47,0.4);
+overflow:hidden;
+flex:1 1 220px;
+}
+.sos-btn:hover{
+transform:translateY(-2px) scale(1.02);
+box-shadow:0 22px 60px rgba(211,47,47,0.5);
+}
+.sos-btn:focus-visible{
+outline:3px solid rgba(244,67,54,0.6);
+outline-offset:2px;
+}
+.pulse{
+position:absolute;
+inset:0;
+border-radius:16px;
+animation:pulse 1.8s ease-out infinite;
+background:rgba(244,67,54,0.15);
+pointer-events:none;
+}
+@keyframes pulse{
+0%{transform:scale(1); opacity:.4;}
+50%{transform:scale(1.08); opacity:.15;}
+100%{transform:scale(1); opacity:.4;}
+}
+.secondary{
+flex:1 1 200px;
+min-width:200px;
+display:flex;
+flex-direction:column;
+gap:.75rem;
+}
+.quick-card{
+background: linear-gradient(135deg, rgba(0,121,107,0.06), rgba(77,182,172,0.04));
+padding:1rem 1rem 1.2rem;
+border-radius:12px;
+display:flex;
+flex-direction:column;
+gap:.6rem;
+position:relative;
+overflow:hidden;
+}
+.quick-card h3{
+margin:0;
+font-size:1.1rem;
+font-weight:600;
+color: var(--teal);
+}
+.quick-card p{
+margin:0;
+font-size:.9rem;
+color:#4f6b81;
+}
+.quick-btn{
+margin-top:6px;
+background: var(--teal);
+color:white;
+border:none;
+padding:.65rem 1rem;
+border-radius:8px;
+cursor:pointer;
+font-weight:600;
+font-size:.85rem;
+transition: var(--transition);
+align-self:start;
+}
+.quick-btn:hover{
+filter:brightness(1.05);
+transform:translateY(-1px);
+}
+.badge-new{
+position:absolute;
+top:10px;
+right:10px;
+background: var(--highlight);
+color:white;
+padding:4px 10px;
+border-radius:999px;
+font-size:10px;
+font-weight:700;
+letter-spacing:1px;
+text-transform:uppercase;
+}
+.helper-suggestion{
+margin-top:1.5rem;
+width:100%;
+max-width:780px;
+display:flex;
+gap:1rem;
+flex-wrap:wrap;
+}
+.suggestion-card{
+background:#fff;
+border-radius:12px;
+padding:1rem 1rem 1.25rem;
+box-shadow:0 16px 48px rgba(0,121,107,0.08);
+display:flex;
+align-items:center;
+gap:1rem;
+flex:1 1 360px;
+position:relative;
+}
+.avatar{
+width:52px;
+height:52px;
+border-radius:50%;
+background: var(--teal);
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-weight:700;
+font-size:.9rem;
+flex-shrink:0;
+position:relative;
+}
+.info{
+flex:1;
+display:flex;
+flex-direction:column;
+gap:4px;
+}
+.info h4{
+margin:0;
+font-size:1.1rem;
+font-weight:600;
+color: #2f4f5f;
+}
+.info small{
+color:#556b81;
+font-size:.8rem;
+}
+.status{
+display:inline-block;
+background: #e0f7fa;
+color: var(--teal);
+padding:3px 10px;
+border-radius:999px;
+font-size:.6rem;
+font-weight:600;
+text-transform:uppercase;
+letter-spacing:1px;
+margin-top:2px;
+}
+.contact{
+background: var(--teal-light);
+border:none;
+padding:.55rem 1rem;
+border-radius:8px;
+font-size:.8rem;
+font-weight:600;
+cursor:pointer;
+color:white;
+transition: var(--transition);
+}
+.contact:hover{
+filter:brightness(1.05);
+transform:translateY(-1px);
+}
+@media (max-width:1024px){
+.hero{flex-direction:column;}
+.cta-group{flex-direction:column;}
+.hero-title{font-size:2rem;}
+}
+@media (max-width:640px){
+.sidebar{display:none;}
+body{flex-direction:column;}
+.main{padding:1.5rem;}
 }
 </style>
 </head>
 <body>
-<div class="sidebar">
-  <a href="home.html" class="active">Home</a>
-  <a href="chat.html">Chat</a>
-  <a href="profile.html">Profile</a>
-  <a href="helpers.html">Helpers</a>
-  <a href="karma.html">Karma</a>
+<div class="sidebar" aria-label="Main navigation">
+<a href="home.html" class="active">Home</a>
+<a href="chat.html">Chat</a>
+<a href="profile.html">Profile</a>
+<a href="helpers.html">Helpers</a>
+<a href="karma.html">Karma</a>
 </div>
 <div class="main">
-  <img src="assets/logo.png" class="logo" alt="SAHARA Logo" />
-  <div class="sos-section">
-    <div class="sos-title">Welcome to SAHARA</div>
-    <div class="sos-desc">Your safety companion. Reach out for help or connect with helpers nearby.</div>
-    <button class="sos-btn">SOS</button>
-  </div>
+<img src="assets/logo.png" alt="SAHARA Logo" class="logo" />
+<div class="hero" aria-label="Welcome panel">
+    <div class="hero-content">
+    <div class="hero-title">Welcome to SAHARA</div>
+    <div class="hero-sub">Your safety companion. Reach out instantly or connect with nearby helpers when you need support.</div>
+    <div class="cta-group">
+        <button class="sos-btn" aria-label="Emergency SOS">
+        <div class="pulse" aria-hidden="true"></div>
+        <span style="font-size:1.3rem;">🚨</span>
+        <span>Emergency SOS</span>
+        </button>
+        <div class="secondary">
+        <div class="quick-card" aria-label="Quick action: Request a helper">
+            <div class="badge-new">New</div>
+            <h3>Request a Helper</h3>
+            <p>Need assistance nearby? Send out a quick alert to trusted helpers in your area.</p>
+            <button class="quick-btn">Request Now</button>
+        </div>
+        <div class="quick-card" aria-label="Quick action: View safety tips">
+            <h3>Safety Tips</h3>
+            <p>Learn quick best practices to stay safe while waiting for help.</p>
+            <button class="quick-btn">View Tips</button>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="helper-suggestion" aria-label="Suggested nearby helpers">
+    <div class="suggestion-card">
+    <div class="avatar" aria-hidden="true">R</div>
+    <div class="info">
+        <h4>Riya Sharma <span class="status">Online</span></h4>
+        <small>Location: Ambala • Verified Helper</small>
+    </div>
+    <button class="contact" aria-label="Contact Riya Sharma">Contact</button>
+    </div>
+    <div class="suggestion-card">
+    <div class="avatar" aria-hidden="true">M</div>
+    <div class="info">
+        <h4>Megha Singh <span class="status" style="background:#fff3e0; color:#ff8f00;">Offline</span></h4>
+        <small>Location: Panchkula • Nearby</small>
+    </div>
+    <button class="contact" aria-label="Contact Megha Singh">Contact</button>
+    </div>
+</div>
 </div>
 </body>
 </html>

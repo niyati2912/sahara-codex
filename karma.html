@@ -6,16 +6,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
+:root {
+--primary:#009688;
+--primary-light:#4db6ac;
+--text-dark:#00796b;
+--bg-gradient: linear-gradient(120deg, #e0f7fa 0%, #e8f5e9 100%);
+}
+
+* { box-sizing:border-box; }
+
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     display: flex;
     height: 100vh;
-    background: linear-gradient(120deg, #e0f7fa 0%, #e8f5e9 100%);
+    background: var(--bg-gradient);
+    overflow: hidden;
 }
 .sidebar {
     width: 250px;
-    background: linear-gradient(135deg, #00796b 60%, #4db6ac 100%);
+    background: linear-gradient(135deg, var(--text-dark) 60%, var(--primary-light) 100%);
     color: white;
     padding: 2rem 1rem;
     display: flex;
@@ -40,83 +50,78 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 h2 {
-    color: #00796b;
-    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    font-size: 2rem;
 }
 .karma-box {
     background: white;
     padding: 2.5rem 3.5rem;
     border-radius: 1rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
     max-width: 500px;
     width: 100%;
     animation: fadeIn 1s ease-in-out;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
-.karma-score {
-    font-size: 3rem;
-    color: #009688;
-    font-weight: 700;
+.karma-score-wrapper {
+    position: relative;
     margin-bottom: 1rem;
+    display: inline-block;
+}
+.karma-score-animated {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    position: relative;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(77,182,172,0.9), 0 0 10px rgba(0,150,136,0.8);
+    animation: pulse 3s ease-in-out infinite;
 }
 .karma-desc {
     color: #555;
-    font-size: 1.1rem;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
 }
 .karma-animation {
     display: flex;
     align-items: flex-end;
     justify-content: center;
     gap: 18px;
-    margin-bottom: 1.5rem;
-    height: 80px;
+    margin-bottom: 1rem;
+    height: 100px;
     position: relative;
+    pointer-events: none;
 }
 .coin {
-    font-size: 2.5rem;
-    animation: coinJump 1.2s infinite;
-    filter: drop-shadow(0 2px 8px #ffd70088);
-}
-.coin:nth-child(2) { animation-delay: 0.3s; }
-.coin:nth-child(3) { animation-delay: 0.6s; }
-@keyframes coinJump {
-    0%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-30px) scale(1.1); }
-    60% { transform: translateY(-10px) scale(0.95); }
-}
-.karma-score-animated {
-    font-size: 3.5rem;
-    font-weight: 700;
-    color: #009688;
-    margin-bottom: 0.5rem;
+    font-size: 2.75rem;
     display: inline-block;
-    animation: windBlow 2.2s infinite alternate;
-    position: relative;
-    z-index: 1;
-    letter-spacing: 2px;
-    text-shadow: 0 0 16px #4db6ac, 0 0 8px #00796b;
+    transform-origin: bottom center;
+    animation: coinFloat 1.5s ease-in-out infinite, coinRotate 2.4s linear infinite;
+    filter: drop-shadow(0 4px 12px rgba(255,215,0,0.6));
+    opacity: 0;
 }
-@keyframes windBlow {
-    0% { transform: translateX(0) rotate(-3deg); opacity: 1; }
-    30% { transform: translateX(10px) rotate(2deg); opacity: 0.95; }
-    60% { transform: translateX(-8px) rotate(-2deg); opacity: 1; }
-    100% { transform: translateX(0) rotate(2deg); opacity: 0.98; }
-}
+.coin:nth-child(1) { animation-delay: 0s, 0s; }
+.coin:nth-child(2) { animation-delay: 0.2s, 0.1s; }
+.coin:nth-child(3) { animation-delay: 0.4s, 0.2s; }
+
 .karma-rules {
     background: #e0f7fa;
-    border-left: 5px solid #009688;
+    border-left: 5px solid var(--primary);
     border-radius: 0 1rem 1rem 0;
     padding: 1.2rem 2rem;
     margin-top: 2rem;
-    color: #00796b;
+    color: var(--text-dark);
     font-size: 1.05rem;
-    box-shadow: 0 2px 8px rgba(0,150,136,0.07);
+    box-shadow: 0 2px 12px rgba(0,150,136,0.07);
     max-width: 480px;
     margin-left: auto;
     margin-right: auto;
@@ -128,9 +133,65 @@ h2 {
 .karma-rules li {
     margin-bottom: 0.5rem;
 }
+
+/* sparkle backdrop */
+.sparkles {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+.sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 60%);
+    opacity: 0;
+    border-radius: 50%;
+    animation: sparkleAnim 3s infinite;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes coinFloat {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    30% { transform: translateY(-35px) scale(1.15); }
+    60% { transform: translateY(-15px) scale(0.95); }
+    100% { transform: translateY(0) scale(1); }
+}
+@keyframes coinRotate {
+    0% { rotate: 0deg; }
+    100% { rotate: 360deg; }
+}
+@keyframes pulse {
+    0% { transform: scale(1); text-shadow: 0 0 16px rgba(77,182,172,0.9); }
+    50% { transform: scale(1.04); text-shadow: 0 0 26px rgba(77,182,172,1); }
+    100% { transform: scale(1); }
+}
+@keyframes sparkleAnim {
+    0% { opacity: 0; transform: scale(0.5); }
+    30% { opacity: 0.9; }
+    60% { opacity: 0.4; transform: scale(1.2); }
+    100% { opacity: 0; }
+}
+
+/* confetti canvas is absolute full */
+#confetti-canvas {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index: 2;
+}
 </style>
 </head>
 <body>
+<canvas id="confetti-canvas"></canvas>
 <div class="sidebar">
 <a href="home.html">Home</a>
 <a href="chat.html">Chat</a>
@@ -138,15 +199,18 @@ h2 {
 <a href="helpers.html">Helpers</a>
 <a href="karma.html">Karma</a>
 </div>
-<div class="main">
+<div class="main" aria-label="Karma dashboard">
 <h2>Your Karma</h2>
-<div class="karma-box">
-    <div class="karma-animation">
-        <span class="coin" style="animation-delay:0s;">🪙</span>
-        <span class="coin" style="animation-delay:0.3s;">🪙</span>
-        <span class="coin" style="animation-delay:0.6s;">🪙</span>
+<div class="karma-box" aria-live="polite">
+    <div class="sparkles" aria-hidden="true"></div>
+    <div class="karma-animation" aria-hidden="true">
+        <span class="coin">🪙</span>
+        <span class="coin">🪙</span>
+        <span class="coin">🪙</span>
     </div>
-    <div class="karma-score-animated">120</div>
+    <div class="karma-score-wrapper">
+        <div id="score" class="karma-score-animated" aria-label="Karma score">0</div>
+    </div>
     <div class="karma-desc">Thank you for helping others! Your positive actions are making a difference.</div>
     <div class="karma-rules">
         <strong>Karma Points Rules:</strong>
@@ -159,5 +223,118 @@ h2 {
     </div>
 </div>
 </div>
+
+<script>
+// count-up animation
+function animateCountUp(element, target, duration) {
+let start = 0;
+const stepTime = Math.max(20, duration / target);
+const startTime = performance.now();
+function step(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const current = Math.floor(progress * target);
+    element.textContent = current;
+    if (progress < 1) {
+    requestAnimationFrame(step);
+    } else {
+    element.textContent = target;
+    }
+}
+requestAnimationFrame(step);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+const scoreEl = document.getElementById("score");
+animateCountUp(scoreEl, 120, 1500);
+
+// create sparkles randomly
+const sparkleContainer = document.querySelector(".sparkles");
+for (let i = 0; i < 25; i++) {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    const size = 4 + Math.random() * 6;
+    s.style.width = s.style.height = size + "px";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = Math.random() * 50 + "%";
+    s.style.animationDelay = (Math.random() * 2) + "s";
+    s.style.opacity = 0;
+    sparkleContainer.appendChild(s);
+}
+
+// confetti burst
+launchConfetti(120);
+});
+
+// simple confetti implementation
+function launchConfetti(count) {
+    const canvas = document.getElementById("confetti-canvas");
+    const ctx = canvas.getContext("2d");
+    let W = canvas.width = window.innerWidth;
+    let H = canvas.height = window.innerHeight;
+    const pieces = [];
+
+    function random(min, max) { return Math.random() * (max - min) + min; }
+
+    class Piece {
+    constructor() {
+        this.x = random(0, W);
+        this.y = random(-H, 0);
+        this.size = random(6, 12);
+        this.color = ['#FFD700','#FF6F61','#4DB6AC','#00796B','#FFB74D'][Math.floor(random(0,5))];
+        this.gravity = random(0.3, 0.7);
+        this.velocityX = random(-1.5, 1.5);
+        this.velocityY = random(2, 5);
+        this.rotation = random(0, Math.PI * 2);
+        this.dTheta = random(-0.1, 0.1);
+        this.opacity = 1;
+        this.life = 0;
+        this.maxLife = random(80, 140);
+    }
+    update() {
+        this.velocityY += this.gravity * 0.01;
+        this.x += this.velocityX;
+        this.y += this.velocityY;
+        this.rotation += this.dTheta;
+        this.life++;
+        if (this.life > this.maxLife) this.opacity -= 0.04;
+    }
+    draw() {
+        ctx.save();
+        ctx.globalAlpha = Math.max(this.opacity, 0);
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+        ctx.restore();
+    }
+    alive() {
+        return this.opacity > 0 && this.y < H + 50;
+    }
+    }
+
+    for (let i = 0; i < count; i++) pieces.push(new Piece());
+
+    function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+
+    function loop() {
+    ctx.clearRect(0, 0, W, H);
+    let anyAlive = false;
+    pieces.forEach(p => {
+        p.update();
+        if (p.alive()) {
+        p.draw();
+        anyAlive = true;
+        }
+    });
+    if (anyAlive) requestAnimationFrame(loop);
+    else ctx.clearRect(0, 0, W, H);
+    }
+    loop();
+}
+</script>
 </body>
 </html>
