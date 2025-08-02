@@ -4,116 +4,106 @@
 <meta charset="UTF-8" />
 <title>Profile - SAHARA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     display: flex;
     height: 100vh;
-    background-color: #fffafc;
+    background: linear-gradient(120deg, #e0f7fa 0%, #e8f5e9 100%);
 }
-
 .sidebar {
     width: 250px;
-    background-color: #f06292;
+    background: linear-gradient(135deg, #00796b 60%, #4db6ac 100%);
     color: white;
     padding: 2rem 1rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    box-shadow: 2px 0 12px rgba(0, 121, 107, 0.08);
+    z-index: 2;
 }
-
 .sidebar a {
     color: white;
     text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
-    transition: color 0.3s ease;
+    transition: color 0.3s, background 0.3s, transform 0.2s;
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    margin: 0 -1rem;
 }
-
-.sidebar a:hover {
-    color: #ffe6ee;
+.sidebar a:hover, .sidebar a.active {
+    background: rgba(255,255,255,0.12);
+    color: #e0f2f1;
+    transform: translateX(8px) scale(1.05);
 }
-
 .main {
     flex: 1;
     padding: 3rem 4rem;
-    background-color: #fffafc;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-h1 {
-    color: #f06292;
-    margin-bottom: 2rem;
+.profile-info {
+    background: #fff;
+    border-radius: 1.2rem;
+    box-shadow: 0 8px 32px rgba(0, 121, 107, 0.08), 0 1.5px 8px rgba(0,0,0,0.03);
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    text-align: center;
+    max-width: 400px;
+    animation: fadeIn 1s ease-in-out;
 }
-
-.profile-card {
-    background: white;
-    padding: 2rem 2.5rem;
-    border-radius: 1rem;
-    max-width: 500px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #b2dfdb;
+    margin-bottom: 1rem;
 }
-
-.profile-card label {
-    display: block;
-    margin-top: 1.2rem;
-    font-weight: 600;
-    color: #333;
+h2 {
+    color: #00796b;
+    margin-bottom: 1rem;
 }
-
-.profile-card input {
-    width: 100%;
-    padding: 0.9rem;
-    margin-top: 0.4rem;
-    border-radius: 0.6rem;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
+p {
+    color: #555;
+    margin-bottom: 0.5rem;
 }
-
-.profile-card button {
-    margin-top: 2rem;
-    width: 100%;
-    padding: 1rem;
-    background-color: #f06292;
+.badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #00796b 60%, #4db6ac 100%);
     color: white;
-    border: none;
-    border-radius: 0.6rem;
+    border-radius: 8px;
+    padding: 0.3rem 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-top: 1rem;
 }
-
-.profile-card button:hover {
-    background-color: #ec407a;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
 <body>
 <div class="sidebar">
-<a href="home.html">Home</a>
-<a href="chat.html">Chat</a>
-<a href="profile.html">Profile</a>
-<a href="helpers.html">Helpers</a>
-<a href="home.html">Resources</a>
+  <a href="home.html">Home</a>
+  <a href="chat.html">Chat</a>
+  <a href="profile.html" class="active">Profile</a>
+  <a href="helpers.html">Helpers</a>
+  <a href="karma.html">Karma</a>
 </div>
-
 <div class="main">
-<h1>Your Profile</h1>
-<div class="profile-card">
-    <label for="name">Name:</label>
-    <input type="text" id="name" value="Niyati Aggarwal" />
-
-    <label for="phone">Phone:</label>
-    <input type="text" id="phone" value="+91 98765 43210" />
-
-    <label for="location">Location:</label>
-    <input type="text" id="location" value="Chandigarh" />
-
-    <button>Update Profile</button>
-</div>
+  <div class="profile-info">
+    <img src="assets/logo.png" class="avatar" alt="User Avatar" />
+    <h2>Molly</h2>
+    <p>Email: molly@example.com</p>
+    <p>Location: Chandigarh</p>
+    <span class="badge">Verified User</span>
+  </div>
 </div>
 </body>
 </html>

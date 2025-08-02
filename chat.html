@@ -4,102 +4,123 @@
 <meta charset="UTF-8" />
 <title>Chat - SAHARA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
 body {
-margin: 0;
-font-family: 'Segoe UI', sans-serif;
-display: flex;
-height: 100vh;
-background-color: #fffafc;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    height: 100vh;
+    background: linear-gradient(120deg, #e0f7fa 0%, #e8f5e9 100%);
 }
 .sidebar {
-width: 250px;
-background-color: #f06292;
-color: white;
-padding: 2rem 1rem;
-display: flex;
-flex-direction: column;
-gap: 1.5rem;
+    width: 250px;
+    background: linear-gradient(135deg, #00796b 60%, #4db6ac 100%);
+    color: white;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: 2px 0 12px rgba(0, 121, 107, 0.08);
+    z-index: 2;
 }
 .sidebar a {
-color: white;
-text-decoration: none;
-font-weight: bold;
-font-size: 1.1rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s, background 0.3s, transform 0.2s;
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    margin: 0 -1rem;
 }
-.sidebar a:hover {
-color: #ffe6ee;
+.sidebar a:hover, .sidebar a.active {
+    background: rgba(255,255,255,0.12);
+    color: #e0f2f1;
+    transform: translateX(8px) scale(1.05);
 }
 .main {
-flex: 1;
-display: flex;
-flex-direction: column;
-padding: 2rem;
+    flex: 1;
+    padding: 3rem 4rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 h1 {
-color: #f06292;
+    color: #00796b;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    font-weight: 600;
 }
 .chat-box {
-flex: 1;
-background: white;
-border-radius: 1rem;
-padding: 1rem;
-box-shadow: 0 5px 10px rgba(0,0,0,0.05);
-overflow-y: auto;
-margin-bottom: 1rem;
+    background: #fff;
+    border-radius: 1.2rem;
+    box-shadow: 0 8px 32px rgba(0, 121, 107, 0.08), 0 1.5px 8px rgba(0,0,0,0.03);
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+    min-height: 300px;
+    margin-bottom: 2rem;
+    animation: fadeIn 1s ease-in-out;
 }
-.message-input {
-display: flex;
+.chat-input {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    max-width: 500px;
 }
-.message-input input {
-flex: 1;
-padding: 0.8rem;
-border-radius: 0.5rem;
-border: 1px solid #ccc;
+input {
+    flex: 1;
+    padding: 0.75rem;
+    border-radius: 12px;
+    border: 1px solid #b2dfdb;
+    font-size: 1rem;
+    background: #f1f8e9;
+    transition: border 0.2s;
 }
-.message-input button {
-padding: 0.8rem 1.2rem;
-margin-left: 1rem;
-background-color: #f06292;
-color: white;
-border: none;
-border-radius: 0.5rem;
-font-weight: bold;
-cursor: pointer;
+input:focus {
+    border: 1.5px solid #4db6ac;
+    outline: none;
+}
+button {
+    background: linear-gradient(90deg, #00796b 60%, #4db6ac 100%);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+button:hover {
+    background: linear-gradient(90deg, #4db6ac 60%, #00796b 100%);
+    transform: translateY(-2px) scale(1.03);
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
 <body>
 <div class="sidebar">
-<a href="home.html">Home</a>
-<a href="chat.html">Chat</a>
-<a href="profile.html">Profile</a>
-<a href="helpers.html">Helpers</a>
-<a href="home.html">Resources</a>
+  <a href="home.html">Home</a>
+  <a href="chat.html" class="active">Chat</a>
+  <a href="profile.html">Profile</a>
+  <a href="helpers.html">Helpers</a>
+  <a href="karma.html">Karma</a>
 </div>
 <div class="main">
-<h1>Chat Support</h1>
-<div class="chat-box" id="chatBox">
-<p><strong>Helper:</strong> Hello, how can I help you today?</p>
+  <h1>Chat</h1>
+  <div class="chat-box">
+    <!-- Chat messages go here -->
+  </div>
+  <form class="chat-input">
+    <input type="text" placeholder="Type your message..." required />
+    <button type="submit">Send</button>
+  </form>
 </div>
-<div class="message-input">
-<input type="text" id="userMessage" placeholder="Type your message..." />
-<button onclick="sendMessage()">Send</button>
-</div>
-</div>
-<script>
-function sendMessage() {
-const box = document.getElementById("chatBox");
-const input = document.getElementById("userMessage");
-const message = input.value.trim();
-if (message !== "") {
-const newMsg = document.createElement("p");
-newMsg.innerHTML = "<strong>You:</strong> " + message;
-box.appendChild(newMsg);
-input.value = "";
-box.scrollTop = box.scrollHeight;
-}
-}
-</script>
 </body>
 </html>

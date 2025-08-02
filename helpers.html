@@ -4,54 +4,111 @@
 <meta charset="UTF-8" />
 <title>Helpers - SAHARA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
 body {
-margin: 0;
-font-family: 'Segoe UI', sans-serif;
-display: flex;
-height: 100vh;
-background-color: #fffafc;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    height: 100vh;
+    background: linear-gradient(120deg, #e0f7fa 0%, #e8f5e9 100%);
 }
 .sidebar {
-width: 250px;
-background-color: #f06292;
-color: white;
-padding: 2rem 1rem;
-display: flex;
-flex-direction: column;
-gap: 1.5rem;
+    width: 250px;
+    background: linear-gradient(135deg, #00796b 60%, #4db6ac 100%);
+    color: white;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: 2px 0 12px rgba(0, 121, 107, 0.08);
+    z-index: 2;
 }
 .sidebar a {
-color: white;
-text-decoration: none;
-font-weight: bold;
-font-size: 1.1rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s, background 0.3s, transform 0.2s;
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    margin: 0 -1rem;
 }
-.sidebar a:hover {
-color: #ffe6ee;
+.sidebar a:hover, .sidebar a.active {
+    background: rgba(255,255,255,0.12);
+    color: #e0f2f1;
+    transform: translateX(8px) scale(1.05);
 }
 .main {
-flex: 1;
-padding: 2rem;
+    flex: 1;
+    padding: 3rem 4rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 h1 {
-color: #f06292;
-margin-bottom: 1.5rem;
+    color: #00796b;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    font-weight: 600;
 }
 .helper-card {
-background: white;
-padding: 1.2rem;
-border-radius: 1rem;
-margin-bottom: 1rem;
-box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+    background: white;
+    padding: 1.7rem 2.2rem 1.5rem 2.2rem;
+    border-radius: 1.2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 121, 107, 0.1), 0 1.5px 8px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 500px;
+    animation: fadeIn 1s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+}
+.helper-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #b2dfdb;
+    box-shadow: 0 2px 10px rgba(0, 121, 107, 0.15);
+    background: #fff;
+    animation: bounce 1.5s infinite alternate;
+}
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+.helper-info {
+    flex: 1;
 }
 .helper-card h3 {
-margin: 0;
-color: #333;
+    margin: 0;
+    color: #333;
+    font-size: 1.3rem;
 }
 .helper-card p {
-margin: 0.5rem 0 0;
-color: #555;
+    margin: 0.5rem 0 0;
+    color: #555;
+    font-size: 1.05rem;
+}
+.animated-help {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    width: 38px;
+    height: 38px;
+    animation: handwave 1.2s infinite alternate;
+}
+@keyframes handwave {
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(18deg); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -60,20 +117,28 @@ color: #555;
 <a href="home.html">Home</a>
 <a href="chat.html">Chat</a>
 <a href="profile.html">Profile</a>
-<a href="helpers.html">Helpers</a>
-<a href="home.html">Resources</a>
+<a href="helpers.html" class="active">Helpers</a>
+<a href="karma.html">Karma</a>
 </div>
 <div class="main">
 <h1>Nearby Helpers</h1>
 <div class="helper-card">
-<h3>Riya Sharma</h3>
-<p>Location: Ambala</p>
-<p>Phone: +91 87654 32109</p>
+  <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Riya Sharma" class="helper-img"/>
+  <div class="helper-info">
+    <h3>Riya Sharma</h3>
+    <p>Location: Ambala</p>
+    <p>Phone: +91 87654 32109</p>
+  </div>
+  <span class="animated-help">🤝</span>
 </div>
 <div class="helper-card">
-<h3>Megha Singh</h3>
-<p>Location: Panchkula</p>
-<p>Phone: +91 76543 21098</p>
+  <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Megha Singh" class="helper-img"/>
+  <div class="helper-info">
+    <h3>Megha Singh</h3>
+    <p>Location: Panchkula</p>
+    <p>Phone: +91 76543 21098</p>
+  </div>
+  <span class="animated-help">🤝</span>
 </div>
 </div>
 </body>

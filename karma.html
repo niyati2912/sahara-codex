@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Sign Up - SAHARA</title>
+<title>Karma - SAHARA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
@@ -34,51 +34,36 @@ body {
 }
 .main {
     flex: 1;
+    padding: 3rem 4rem;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem 4rem;
-}
-.logo {
-    width: 120px;
-    margin-bottom: 2rem;
-}
-.signup-box {
-    background: white;
-    padding: 2.5rem 3.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    max-width: 400px;
-    width: 100%;
-    animation: fadeIn 1s ease-in-out;
-    text-align: center;
 }
 h2 {
     color: #00796b;
     margin-bottom: 1.5rem;
 }
-input[type="text"], input[type="password"], input[type="email"] {
+.karma-box {
+    background: white;
+    padding: 2.5rem 3.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    max-width: 500px;
     width: 100%;
-    padding: 0.75rem;
+    animation: fadeIn 1s ease-in-out;
+    text-align: center;
+}
+.karma-score {
+    font-size: 3rem;
+    color: #009688;
+    font-weight: 700;
     margin-bottom: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
 }
-button {
-    background: linear-gradient(135deg, #00796b 60%, #4db6ac 100%);
-    color: #004d40;
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.2s;
-}
-button:hover {
-    background-color: #009688;
-    color: white;
+.karma-desc {
+    color: #555;
+    font-size: 1.1rem;
 }
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
@@ -95,15 +80,10 @@ button:hover {
 <a href="karma.html">Karma</a>
 </div>
 <div class="main">
-<img src="assets/logo.png" alt="SAHARA Logo" class="logo" />
-<div class="signup-box">
-    <h2>Sign Up for SAHARA</h2>
-    <form>
-        <input type="text" placeholder="Username" required />
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Password" required />
-        <button type="submit">Sign Up</button>
-    </form>
+<h2>Your Karma</h2>
+<div class="karma-box">
+    <div class="karma-score">120</div>
+    <div class="karma-desc">Thank you for helping others! Your positive actions are making a difference.</div>
 </div>
 </div>
 </body>
