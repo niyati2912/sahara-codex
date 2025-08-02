@@ -1,0 +1,101 @@
+    <!-- SAHARA Unified Dashboard Page (index.html/home.html) -->
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAHARA Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+    body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: #fff0f5;
+    }
+    .sidebar {
+    width: 250px;
+    background-color: #e57399;
+    color: white;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    }
+    .sidebar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    }
+    .sidebar a:hover {
+    color: #ffdee9;
+    }
+    .main {
+    flex: 1;
+    padding: 2rem;
+    background: linear-gradient(135deg, #ffe6f0, #ffffff);
+    }
+    h1 {
+    color: #d81b60;
+    margin-bottom: 1.5rem;
+    }
+    .sos-btn {
+    padding: 2.5rem 4rem;
+    background-color: #ff1744; /* Bright red */
+    color: white;
+    font-size: 2rem;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 23, 68, 0.3);
+    }
+    .sos-btn:hover {
+    background-color: #d50000;
+    }
+    .resources {
+    margin-top: 3rem;
+    }
+    .resources h2 {
+    color: #d81b60;
+    margin-bottom: 1rem;
+    }
+    .resources ul {
+    list-style: none;
+    padding: 0;
+    }
+    .resources li {
+    background: #fff;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    </style>
+    </head>
+    <body>
+    <div class="sidebar">
+    <a href="home.html">Home</a>
+    <a href="chat.html">Chat</a>
+    <a href="profile.html">Profile</a>
+    <a href="helpers.html">Helpers</a>
+    <a href="feedback.html">Feedback</a>
+    </div>
+
+    <div class="main">
+    <h1>Welcome to SAHARA</h1>
+    <button class="sos-btn">🚨 SOS Help</button>
+
+    <div class="resources">
+    <h2>Helpful Resources</h2>
+    <ul>
+    <li>📍 Nearest NGO List</li>
+    <li>💬 Talk to Our AI Assistant</li>
+    <li>📧 Email Suggestions for Help</li>
+    </ul>
+    </div>
+    </div>
+    </body>
+    </html>

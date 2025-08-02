@@ -1,0 +1,50 @@
+<!-- form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SAHARA - Login</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fef6f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+h1 {
+    color: #d6336c;
+}
+.btn {
+    padding: 1rem 2rem;
+    margin: 1rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    background-color: #ff6b81;
+    color: white;
+    transition: 0.2s;
+}
+.btn:hover {
+    background-color: #d6336c;
+}
+</style>
+</head>
+<body>
+<h1>Welcome to SAHARA</h1>
+<p>How can we support you today?</p>
+<button class="btn" onclick="goToHome('volunteer')">I'm a Volunteer</button>
+<button class="btn" onclick="goToHome('seeker')">I Need Help</button>
+
+<script>
+function goToHome(role) {
+    // You can store role in localStorage if needed
+    localStorage.setItem('role', role);
+    window.location.href = "home.html";
+}
+</script>
+</body>
+</html>

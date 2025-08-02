@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Chat - SAHARA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+body {
+margin: 0;
+font-family: 'Segoe UI', sans-serif;
+display: flex;
+height: 100vh;
+background-color: #fffafc;
+}
+.sidebar {
+width: 250px;
+background-color: #f06292;
+color: white;
+padding: 2rem 1rem;
+display: flex;
+flex-direction: column;
+gap: 1.5rem;
+}
+.sidebar a {
+color: white;
+text-decoration: none;
+font-weight: bold;
+font-size: 1.1rem;
+}
+.sidebar a:hover {
+color: #ffe6ee;
+}
+.main {
+flex: 1;
+display: flex;
+flex-direction: column;
+padding: 2rem;
+}
+h1 {
+color: #f06292;
+}
+.chat-box {
+flex: 1;
+background: white;
+border-radius: 1rem;
+padding: 1rem;
+box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+overflow-y: auto;
+margin-bottom: 1rem;
+}
+.message-input {
+display: flex;
+}
+.message-input input {
+flex: 1;
+padding: 0.8rem;
+border-radius: 0.5rem;
+border: 1px solid #ccc;
+}
+.message-input button {
+padding: 0.8rem 1.2rem;
+margin-left: 1rem;
+background-color: #f06292;
+color: white;
+border: none;
+border-radius: 0.5rem;
+font-weight: bold;
+cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<a href="home.html">Home</a>
+<a href="chat.html">Chat</a>
+<a href="profile.html">Profile</a>
+<a href="helpers.html">Helpers</a>
+<a href="home.html">Resources</a>
+</div>
+<div class="main">
+<h1>Chat Support</h1>
+<div class="chat-box" id="chatBox">
+<p><strong>Helper:</strong> Hello, how can I help you today?</p>
+</div>
+<div class="message-input">
+<input type="text" id="userMessage" placeholder="Type your message..." />
+<button onclick="sendMessage()">Send</button>
+</div>
+</div>
+<script>
+function sendMessage() {
+const box = document.getElementById("chatBox");
+const input = document.getElementById("userMessage");
+const message = input.value.trim();
+if (message !== "") {
+const newMsg = document.createElement("p");
+newMsg.innerHTML = "<strong>You:</strong> " + message;
+box.appendChild(newMsg);
+input.value = "";
+box.scrollTop = box.scrollHeight;
+}
+}
+</script>
+</body>
+</html>

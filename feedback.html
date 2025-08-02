@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Feedback - SAHARA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+body {
+margin: 0;
+font-family: 'Segoe UI', sans-serif;
+display: flex;
+height: 100vh;
+background-color: #fffafc;
+}
+.sidebar {
+width: 250px;
+background-color: #f06292;
+color: white;
+padding: 2rem 1rem;
+display: flex;
+flex-direction: column;
+gap: 1.5rem;
+}
+.sidebar a {
+color: white;
+text-decoration: none;
+font-weight: bold;
+font-size: 1.1rem;
+}
+.sidebar a:hover {
+color: #ffe6ee;
+}
+.main {
+flex: 1;
+padding: 2rem;
+}
+h1 {
+color: #f06292;
+}
+form {
+background: white;
+padding: 2rem;
+border-radius: 1rem;
+max-width: 500px;
+box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+}
+label {
+display: block;
+margin-top: 1rem;
+font-weight: 500;
+}
+textarea, input {
+width: 100%;
+padding: 0.8rem;
+margin-top: 0.5rem;
+border-radius: 0.5rem;
+border: 1px solid #ccc;
+}
+button {
+margin-top: 2rem;
+padding: 0.8rem 1.5rem;
+background-color: #f06292;
+color: white;
+border: none;
+border-radius: 0.5rem;
+font-weight: bold;
+cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<a href="home.html">Home</a>
+<a href="chat.html">Chat</a>
+<a href="profile.html">Profile</a>
+<a href="helpers.html">Helpers</a>
+<a href="home.html">Resources</a>
+</div>
+<div class="main">
+<h1>Feedback</h1>
+<form>
+<label for="name">Your Name</label>
+<input type="text" id="name" placeholder="Enter your name" />
+<label for="message">Your Feedback</label>
+<textarea id="message" rows="5" placeholder="Enter your feedback here"></textarea>
+<button type="submit">Submit</button>
+</form>
+</div>
+</body>
+</html>
