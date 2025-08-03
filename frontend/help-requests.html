@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Help Requests - SAHARA</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0faff;
+      color: #003366;
+    }
+
+    header {
+      background-color: #e0f0ff;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.8em;
+      color: #007acc;
+      font-weight: bold;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.4em;
+      color: #005b99;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 20px 30px;
+    }
+
+    .category {
+      background-color: #ffffff;
+      border: 1px solid #cce5ff;
+      border-radius: 8px;
+      padding: 8px 16px;
+      color: #007acc;
+      font-weight: 500;
+      cursor: default;
+    }
+
+    .filter-button {
+      background-color: #007acc;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+
+    .filter-button:hover {
+      background-color: #005f99;
+    }
+
+    .request-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      padding: 30px 20px 60px;
+    }
+
+    .request-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      width: 320px;
+      padding: 20px;
+      text-align: left;
+      position: relative;
+    }
+
+    .request-card h3 {
+      margin: 0 0 10px;
+      color: #007acc;
+    }
+
+    .request-card p {
+      margin: 6px 0;
+      color: #333;
+    }
+
+    .map-link {
+      display: inline-block;
+      margin: 10px 0;
+      font-size: 0.9em;
+      color: #007acc;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .help-button, .chat-button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95em;
+      cursor: pointer;
+    }
+
+    .help-button {
+      background-color: #007acc;
+      color: white;
+    }
+
+    .help-button:hover {
+      background-color: #005f99;
+    }
+
+    .chat-button {
+      background-color: #cce5ff;
+      color: #005b99;
+    }
+
+    .chat-button:hover {
+      background-color: #b3daff;
+    }
+
+    .notification {
+      margin-top: 10px;
+      color: green;
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #e0f0ff;
+      color: #003366;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Help Requests</header>
+
+  <div class="section-heading">Types of Help</div>
+
+  <div class="categories">
+    <div class="category">Medical</div>
+    <div class="category">Emotional</div>
+    <div class="category">Safety</div>
+    <div class="category">Technical</div>
+    <div class="category">Lost/Stranded</div>
+    <div class="category">Women/LGBTQ+</div>
+    <button class="filter-button" onclick="filterNearby()">Near My Location</button>
+  </div>
+
+  <div class="request-list">
+    <!-- Request 1 -->
+    <div class="request-card" id="card-riya">
+      <h3>Riya Sharma</h3>
+      <p><strong>Help Needed:</strong> Emotional Support</p>
+      <p><strong>Location:</strong> Delhi University Hostel</p>
+      <p>Panic attack & alone in her room. Needs a listener nearby.</p>
+      <span class="map-link" onclick="viewMap('Delhi University')">View on Map</span>
+      <div class="button-row">
+        <button class="help-button" onclick="helpNow('Riya Sharma', 'card-riya')">Help Now</button>
+        <button class="chat-button" onclick="startChat('Riya Sharma')">Chat</button>
+      </div>
+    </div>
+
+    <!-- Request 2 -->
+    <div class="request-card" id="card-mohit">
+      <h3>Mohit Verma</h3>
+      <p><strong>Help Needed:</strong> Medical - Diabetic Emergency</p>
+      <p><strong>Location:</strong> Pune Station</p>
+      <p>Out of insulin, feels dizzy, no emergency contact reachable.</p>
+      <span class="map-link" onclick="viewMap('Pune Station')">View on Map</span>
+      <div class="button-row">
+        <button class="help-button" onclick="helpNow('Mohit Verma', 'card-mohit')">Help Now</button>
+        <button class="chat-button" onclick="startChat('Mohit Verma')">Chat</button>
+      </div>
+    </div>
+
+    <!-- Request 3 -->
+    <div class="request-card" id="card-arun">
+      <h3>Arun & Sameer</h3>
+      <p><strong>Help Needed:</strong> Stranded Late Night</p>
+      <p><strong>Location:</strong> Sector 56, Gurgaon</p>
+      <p>Cab broke down, phone battery low, need safe ride or tracking.</p>
+      <span class="map-link" onclick="viewMap('Sector 56 Gurgaon')">View on Map</span>
+      <div class="button-row">
+        <button class="help-button" onclick="helpNow('Arun & Sameer', 'card-arun')">Help Now</button>
+        <button class="chat-button" onclick="startChat('Arun & Sameer')">Chat</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 SAHARA Community | All rights reserved</p>
+  </footer>
+
+  <script>
+    function helpNow(name, cardId) {
+      const card = document.getElementById(cardId);
+      const note = document.createElement("div");
+      note.className = "notification";
+      note.textContent = `Notification sent to ${name}`;
+      const old = card.querySelector(".notification");
+      if (old) old.remove();
+      card.appendChild(note);
+    }
+
+    function startChat(name) {
+      const chatUrl = `chat.html?user=${encodeURIComponent(name)}`;
+      window.location.href = chatUrl;
+    }
+
+    function viewMap(location) {
+      const query = encodeURIComponent(location);
+      window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
+    }
+
+    function filterNearby() {
+      alert("Filtering help requests near your current location...");
+      // Add location-based filtering logic here later
+    }
+  </script>
+
+</body>
+</html>

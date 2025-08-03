@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SAHARA Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0faff;
+      color: #003366;
+    }
+
+    .container {
+      text-align: center;
+      padding: 50px 20px 30px;
+    }
+
+    .container h2 {
+      font-size: 2em;
+      color: #007acc;
+      margin-bottom: 40px;
+    }
+
+    .sos-button {
+      background-color: #e60000;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      font-size: 1.4em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 50px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .sos-button:hover {
+      background-color: #cc0000;
+    }
+
+    .cards-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      width: 280px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .card button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .card button:hover {
+      background-color: #005f99;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #e0f0ff;
+      color: #003366;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>You're not alone — help is just a click away.</h2>
+
+    <button class="sos-button" onclick="handleSOS()">SOS</button>
+
+    <div class="cards-wrapper">
+      <!-- Profile Card -->
+      <div class="card">
+        <img src="images/profile.jpg" alt="Your Profile" />
+        <button onclick="viewProfile()">View Your Profile</button>
+      </div>
+
+      <!-- Help Others Card -->
+      <div class="card">
+        <img src="images/help-others.jpg" alt="Who Needs You" />
+        <button onclick="seeWhoNeedsYou()">See Who Needs You</button>
+      </div>
+
+      <!-- Leaderboard Card -->
+      <div class="card">
+        <img src="images/leaderboard.jpg" alt="Leaderboard" />
+        <button onclick="viewLeaderboard()">View Leaderboard</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 SAHARA Community | All rights reserved</p>
+  </footer>
+
+  <script>
+    function handleSOS() {
+      window.location.href = "askhelp.html";
+    }
+
+    function viewProfile() {
+      window.location.href = "profile.html";
+    }
+
+    function seeWhoNeedsYou() {
+      window.location.href = "help-requests.html";
+    }
+
+    function viewLeaderboard() {
+      window.location.href = "leaderboard.html";
+    }
+  </script>
+
+</body>
+</html>

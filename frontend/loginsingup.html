@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join SAHARA</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0faff;
+      color: #003366;
+    }
+
+    .container {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    .container h2 {
+      font-size: 2.5em;
+      color: #007acc;
+      margin-bottom: 10px;
+    }
+
+    .tagline-space {
+      height: 30px;
+      margin-bottom: 40px;
+      color: #005b99;
+      font-size: 1.1em;
+    }
+
+    .forms-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .form-box {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      width: 300px;
+    }
+
+    .form-box h3 {
+      margin-top: 0;
+      color: #0066aa;
+      margin-bottom: 20px;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #cce5ff;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+
+    .form-box button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .form-box button:hover {
+      background-color: #005f99;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      padding: 20px;
+      background-color: #e0f0ff;
+      color: #003366;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Be a part of SAHARA</h2>
+    <div class="tagline-space">[Your tagline goes here]</div>
+
+    <div class="forms-wrapper">
+      <!-- Login Form -->
+      <div class="form-box">
+        <h3>Login</h3>
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+       <button onclick="redirectToDashboard()">Login</button>
+      </div>
+ <script>
+  function redirectToDashboard() {
+    window.location.href = "dashboard.html"; // make sure dashboard.html exists
+  }
+</script>
+      <!-- Signup Form -->
+      <div class="form-box">
+        <h3>Sign Up</h3>
+        <input type="text" placeholder="Full Name" />
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+        <button onclick="redirectToDashboard()">Sign Up</button>
+      </div>
+    </div>
+  </div>
+  <script>
+  function redirectToDashboard() {
+    window.location.href = "dashboard.html"; // make sure dashboard.html exists
+  }
+</script>
+
+
+  <footer>
+    <p>© 2025 SAHARA Community | All rights reserved</p>
+  </footer>
+
+</body>
+</html>

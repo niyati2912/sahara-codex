@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ask for Help - SAHARA</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0faff;
+      color: #003366;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      text-align: center;
+      color: #007acc;
+      margin-bottom: 10px;
+    }
+
+    p.tagline {
+      text-align: center;
+      color: #005b99;
+      margin-bottom: 30px;
+      font-size: 1em;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #cce5ff;
+      border-radius: 6px;
+      background-color: #f9fdff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .location-btn {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #cce5ff;
+      color: #005b99;
+      border: none;
+      border-radius: 5px;
+      font-size: 0.9em;
+      cursor: pointer;
+    }
+
+    .location-btn:hover {
+      background-color: #b3daff;
+    }
+
+    button[type="submit"] {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #005f99;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #e0f0ff;
+      color: #003366;
+      font-size: 0.9em;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Need Help?</h2>
+    <p class="tagline">Fill out this quick form and someone nearby will reach out.</p>
+
+    <form onsubmit="submitRequest(event)">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" required>
+
+      <label for="location">Your Location</label>
+      <input type="text" id="location" required>
+      <button type="button" class="location-btn" onclick="getLiveLocation()">📍 Share Live Location</button>
+
+      <label for="type">Type of Help</label>
+      <select id="type" required>
+        <option value="">-- Select Help Type --</option>
+        <option>Medical</option>
+        <option>Emotional/Mental Support</option>
+        <option>Safety/Escort</option>
+        <option>Minor Technical Help</option>
+        <option>Lost or Stranded</option>
+        <option>Support for Women or LGBTQ+</option>
+      </select>
+
+      <label for="description">Describe Your Situation</label>
+      <textarea id="description" placeholder="Briefly describe what you’re facing..." required></textarea>
+
+      <button type="submit">Send Help Request</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>© 2025 SAHARA Community | All rights reserved</p>
+  </footer>
+
+  <script>
+    function submitRequest(event) {
+  event.preventDefault();
+
+  alert("Your help request has been submitted. Stay safe — someone will reach out shortly.");
+  
+  window.location.href = "liveVolunteer.html";
+}
+
+
+    function getLiveLocation() {
+      const locationInput = document.getElementById("location");
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude.toFixed(6);
+            const lon = position.coords.longitude.toFixed(6);
+            locationInput.value = `Lat: ${lat}, Lon: ${lon}`;
+          },
+          () => {
+            alert("Unable to access location. Please allow permission or enter manually.");
+          }
+        );
+      } else {
+        alert("Geolocation is not supported by your browser.");
+      }
+    }
+  </script>
+
+</body>
+</html>

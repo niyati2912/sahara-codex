@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live Volunteers - SAHARA</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0faff;
+      color: #003366;
+    }
+
+    header {
+      background-color: #e0f0ff;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.6em;
+      font-weight: bold;
+      color: #007acc;
+    }
+
+    .volunteer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      padding: 40px 20px;
+    }
+
+    .volunteer-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      width: 260px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .volunteer-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .volunteer-card h3 {
+      margin: 0;
+      color: #005b99;
+    }
+
+    .volunteer-card p {
+      margin: 8px 0;
+      font-size: 0.95em;
+      color: #333;
+    }
+
+    .notify-button {
+      background-color: #007acc;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95em;
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .notify-button:hover {
+      background-color: #005f99;
+    }
+
+    .notified-message {
+      margin-top: 10px;
+      color: green;
+      font-size: 0.85em;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #e0f0ff;
+      color: #003366;
+      font-size: 0.9em;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Live Volunteers Near You</header>
+
+  <div class="volunteer-grid">
+    <!-- Volunteer Card 1 -->
+    <div class="volunteer-card" id="volunteer1">
+      <img src="images/user1.jpg" alt="Volunteer Photo">
+      <h3>Ananya Mehra</h3>
+      <p>Karma Points: 140</p>
+      <button class="notify-button" onclick="notifyVolunteer('volunteer1')">Emergency Notify</button>
+    </div>
+
+    <!-- Volunteer Card 2 -->
+    <div class="volunteer-card" id="volunteer2">
+      <img src="images/user2.jpg" alt="Volunteer Photo">
+      <h3>Rohan Desai</h3>
+      <p>Karma Points: 115</p>
+      <button class="notify-button" onclick="notifyVolunteer('volunteer2')">Emergency Notify</button>
+    </div>
+
+    <!-- Volunteer Card 3 -->
+    <div class="volunteer-card" id="volunteer3">
+      <img src="images/user3.jpg" alt="Volunteer Photo">
+      <h3>Sana Qureshi</h3>
+      <p>Karma Points: 160</p>
+      <button class="notify-button" onclick="notifyVolunteer('volunteer3')">Emergency Notify</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 SAHARA Community | All rights reserved</p>
+  </footer>
+
+  <script>
+    function notifyVolunteer(id) {
+      const card = document.getElementById(id);
+      const msg = document.createElement('div');
+      msg.className = 'notified-message';
+      msg.textContent = 'Volunteer Notified!';
+      const oldMsg = card.querySelector('.notified-message');
+      if (oldMsg) oldMsg.remove();
+      card.appendChild(msg);
+    }
+  </script>
+
+</body>
+</html>
