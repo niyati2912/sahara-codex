@@ -11,32 +11,27 @@
       background-color: #f0faff;
       color: #003366;
     }
-
     .container {
       text-align: center;
       padding: 60px 20px 40px;
     }
-
     .container h2 {
       font-size: 2.5em;
       color: #007acc;
       margin-bottom: 10px;
     }
-
     .tagline-space {
       height: 30px;
       margin-bottom: 40px;
       color: #005b99;
       font-size: 1.1em;
     }
-
     .forms-wrapper {
       display: flex;
       justify-content: center;
       gap: 40px;
       flex-wrap: wrap;
     }
-
     .form-box {
       background-color: #ffffff;
       border-radius: 12px;
@@ -44,13 +39,11 @@
       padding: 30px;
       width: 300px;
     }
-
     .form-box h3 {
       margin-top: 0;
       color: #0066aa;
       margin-bottom: 20px;
     }
-
     .form-box input {
       width: 100%;
       padding: 10px;
@@ -59,7 +52,6 @@
       border-radius: 6px;
       font-size: 1em;
     }
-
     .form-box button {
       width: 100%;
       padding: 10px;
@@ -70,11 +62,9 @@
       font-size: 1em;
       cursor: pointer;
     }
-
     .form-box button:hover {
       background-color: #005f99;
     }
-
     footer {
       margin-top: 50px;
       text-align: center;
@@ -95,35 +85,87 @@
       <!-- Login Form -->
       <div class="form-box">
         <h3>Login</h3>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-       <button onclick="redirectToDashboard()">Login</button>
+        <input type="email" id="login-email" placeholder="Email" />
+        <input type="password" id="login-password" placeholder="Password" />
+        <button id="login-btn">Login</button>
       </div>
- <script>
-  function redirectToDashboard() {
-    window.location.href = "dashboard.html"; // make sure dashboard.html exists
-  }
-</script>
+
       <!-- Signup Form -->
       <div class="form-box">
         <h3>Sign Up</h3>
-        <input type="text" placeholder="Full Name" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <button onclick="redirectToDashboard()">Sign Up</button>
+        <input type="text" id="signup-name" placeholder="Full Name" />
+        <input type="email" id="signup-email" placeholder="Email" />
+        <input type="password" id="signup-password" placeholder="Password" />
+        <input type="text" id="signup-role" placeholder="Role" />
+        <input type="text" id="signup-location" placeholder="Location" />
+        <button id="signup-btn">Sign Up</button>
       </div>
     </div>
   </div>
-  <script>
-  function redirectToDashboard() {
-    window.location.href = "dashboard.html"; // make sure dashboard.html exists
-  }
-</script>
-
 
   <footer>
     <p>© 2025 SAHARA Community | All rights reserved</p>
   </footer>
 
+  <!-- Firebase SDK + Config -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD6vqtV6apJ41XKyOjYxEIeIzt_DmaLnq0",
+      authDomain: "sahara-cb829.firebaseapp.com",
+      projectId: "sahara-cb829",
+      storageBucket: "sahara-cb829.firebasestorage.app",
+      messagingSenderId: "245992709744",
+      appId: "1:245992709744:web:a96331ce109d79844fdeb5",
+      measurementId: "G-G5LXE5110B"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Signup logic
+    document.getElementById('signup-btn').addEventListener('click', async () => {
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const role = document.getElementById('signup-role').value;
+      const location = document.getElementById('signup-location').value;
+      const karma = 0;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        await setDoc(doc(db, "users", user.uid), {
+          name, email, role, location, karma
+        });
+
+        alert("Signup successful!");
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        alert("Signup failed: " + error.message);
+      }
+    });
+
+    // Login logic
+    document.getElementById('login-btn').addEventListener('click', async () => {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Login successful!");
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        alert("Login failed: " + error.message);
+      }
+    });
+  </script>
 </body>
 </html>

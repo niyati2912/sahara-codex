@@ -205,5 +205,31 @@
     }
   </script>
 
+  <!-- Firebase Login Check -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD6vqtV6apJ41XKyOjYxEIeIzt_DmaLnq0",
+      authDomain: "sahara-cb829.firebaseapp.com",
+      projectId: "sahara-cb829",
+      storageBucket: "sahara-cb829.firebasestorage.app",
+      messagingSenderId: "245992709744",
+      appId: "1:245992709744:web:a96331ce109d79844fdeb5",
+      measurementId: "G-G5LXE5110B"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        alert("Please log in first.");
+        window.location.href = "index.html"; // your login/signup page
+      }
+    });
+  </script>
+
 </body>
 </html>
