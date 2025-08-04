@@ -112,7 +112,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyD6vqtV6apJ41XKyOjYxEIeIzt_DmaLnq0",
@@ -153,15 +153,40 @@
       }
     });
 
-    // Login logic
+    // Login logic with live location saving
     document.getElementById('login-btn').addEventListener('click', async () => {
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
 
       try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert("Login successful!");
-        window.location.href = "dashboard.html";
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Try getting location
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(async (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            const userDoc = doc(db, "users", user.uid);
+            await updateDoc(userDoc, {
+              location: {
+                latitude: lat,
+                longitude: lon
+              }
+            });
+
+            alert("Login successful! Location updated.");
+            window.location.href = "dashboard.html";
+          }, () => {
+            alert("Login successful (but location not shared).");
+            window.location.href = "dashboard.html";
+          });
+        } else {
+          alert("Login successful (geolocation not supported).");
+          window.location.href = "dashboard.html";
+        }
+
       } catch (error) {
         alert("Login failed: " + error.message);
       }

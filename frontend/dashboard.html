@@ -205,10 +205,11 @@
     }
   </script>
 
-  <!-- Firebase Login Check -->
+  <!-- Firebase GPS + Auth Logic -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import { getFirestore, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyD6vqtV6apJ41XKyOjYxEIeIzt_DmaLnq0",
@@ -222,11 +223,36 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (!user) {
         alert("Please log in first.");
-        window.location.href = "index.html"; // your login/signup page
+        window.location.href = "index.html";
+        return;
+      }
+
+      // ✅ Update user's Firestore location on load
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          try {
+            const userRef = doc(db, "users", user.uid);
+            await updateDoc(userRef, {
+              location: {
+                latitude: lat,
+                longitude: lon
+              }
+            });
+            console.log("Location updated in Firestore.");
+          } catch (err) {
+            console.error("Failed to update location:", err);
+          }
+        }, () => {
+          console.warn("Location permission denied.");
+        });
       }
     });
   </script>

@@ -11,7 +11,6 @@
       background-color: #f0faff;
       color: #003366;
     }
-
     .container {
       max-width: 600px;
       margin: 60px auto;
@@ -20,26 +19,22 @@
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
     }
-
     h2 {
       text-align: center;
       color: #007acc;
       margin-bottom: 10px;
     }
-
     p.tagline {
       text-align: center;
       color: #005b99;
       margin-bottom: 30px;
       font-size: 1em;
     }
-
     label {
       display: block;
       margin: 15px 0 5px;
       font-weight: 500;
     }
-
     input, select, textarea {
       width: 100%;
       padding: 10px;
@@ -48,12 +43,10 @@
       border-radius: 6px;
       background-color: #f9fdff;
     }
-
     textarea {
       resize: vertical;
       min-height: 80px;
     }
-
     .location-btn {
       margin-top: 10px;
       padding: 8px 12px;
@@ -64,11 +57,9 @@
       font-size: 0.9em;
       cursor: pointer;
     }
-
     .location-btn:hover {
       background-color: #b3daff;
     }
-
     button[type="submit"] {
       margin-top: 25px;
       width: 100%;
@@ -80,11 +71,9 @@
       font-size: 1.1em;
       cursor: pointer;
     }
-
     button[type="submit"]:hover {
       background-color: #005f99;
     }
-
     footer {
       text-align: center;
       padding: 20px;
@@ -132,18 +121,8 @@
   </footer>
 
   <script>
-    function submitRequest(event) {
-  event.preventDefault();
-
-  alert("Your help request has been submitted. Stay safe — someone will reach out shortly.");
-  
-  window.location.href = "liveVolunteer.html";
-}
-
-
     function getLiveLocation() {
       const locationInput = document.getElementById("location");
-
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -157,6 +136,49 @@
         );
       } else {
         alert("Geolocation is not supported by your browser.");
+      }
+    }
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD6vqtV6apJ41XKyOjYxEIeIzt_DmaLnq0",
+      authDomain: "sahara-cb829.firebaseapp.com",
+      projectId: "sahara-cb829",
+      storageBucket: "sahara-cb829.appspot.com",
+      messagingSenderId: "245992709744",
+      appId: "1:245992709744:web:a96331ce109d79844fdeb5",
+      measurementId: "G-G5LXE5110B"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.submitRequest = async function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const location = document.getElementById("location").value;
+      const type = document.getElementById("type").value;
+      const description = document.getElementById("description").value;
+
+      try {
+        await addDoc(collection(db, "help_requests"), {
+          name,
+          location,
+          type,
+          description,
+          timestamp: new Date()
+        });
+
+        alert("Your help request has been submitted. Stay safe — someone will reach out shortly.");
+        window.location.href = "liveVolunteer.html";
+      } catch (error) {
+        console.error("Error saving to Firestore:", error);
+        alert("Something went wrong. Please try again.");
       }
     }
   </script>

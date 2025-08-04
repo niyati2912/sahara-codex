@@ -6,12 +6,7 @@
   <title>Live Volunteers - SAHARA</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(to right, #f0faff, #d4f1ff);
@@ -20,7 +15,6 @@
       display: flex;
       flex-direction: column;
     }
-
     header {
       background-color: #e0f0ff;
       padding: 25px 20px;
@@ -33,7 +27,6 @@
       top: 0;
       z-index: 1000;
     }
-
     .volunteer-grid {
       display: flex;
       flex-wrap: wrap;
@@ -42,7 +35,6 @@
       padding: 60px 20px;
       flex: 1;
     }
-
     .volunteer-card {
       background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(20px);
@@ -55,38 +47,20 @@
       transition: transform 0.4s ease, box-shadow 0.4s ease;
       animation: popUp 0.6s ease forwards;
     }
-
     .volunteer-card:hover {
       transform: translateY(-12px);
       box-shadow: 0 16px 45px rgba(0, 102, 170, 0.3);
     }
-
-    .volunteer-card img {
-      width: 110px;
-      height: 110px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 20px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-
-    .volunteer-card img:hover {
-      transform: scale(1.08);
-    }
-
     .volunteer-card h3 {
       margin: 8px 0;
       color: #004c80;
       font-size: 1.25em;
     }
-
     .volunteer-card p {
       margin: 10px 0;
       font-size: 1em;
       color: #002f5f;
     }
-
     .notify-button {
       background: #00bfff;
       color: white;
@@ -100,13 +74,11 @@
       box-shadow: 0 0 10px rgba(0,191,255,0.6);
       font-weight: 600;
     }
-
     .notify-button:hover {
       background-color: #009fd9;
       box-shadow: 0 0 20px rgba(0,191,255,0.9);
       transform: scale(1.02);
     }
-
     .notified-message {
       margin-top: 15px;
       color: green;
@@ -114,7 +86,6 @@
       font-weight: bold;
       animation: fadeIn 0.4s ease-in-out;
     }
-
     footer {
       text-align: center;
       padding: 20px;
@@ -124,17 +95,14 @@
       margin-top: auto;
       box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(5px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes popUp {
       0% { opacity: 0; transform: translateY(30px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-
     @media (max-width: 768px) {
       .volunteer-grid {
         flex-direction: column;
@@ -148,31 +116,28 @@
 
   <header>Live Volunteers Near You</header>
 
-  <div class="volunteer-grid">
-    <!-- Volunteer Card 1 -->
+  <div class="volunteer-grid" id="hardcodedVolunteers">
     <div class="volunteer-card" id="volunteer1">
-      
       <h3>Ananya Mehra</h3>
       <p>Karma Points: 140</p>
       <button class="notify-button" onclick="notifyVolunteer('volunteer1')">Emergency Notify</button>
     </div>
-
-    <!-- Volunteer Card 2 -->
     <div class="volunteer-card" id="volunteer2">
-      
       <h3>Rohan Desai</h3>
       <p>Karma Points: 115</p>
       <button class="notify-button" onclick="notifyVolunteer('volunteer2')">Emergency Notify</button>
     </div>
-
-    <!-- Volunteer Card 3 -->
     <div class="volunteer-card" id="volunteer3">
-      
       <h3>Sana Qureshi</h3>
       <p>Karma Points: 160</p>
       <button class="notify-button" onclick="notifyVolunteer('volunteer3')">Emergency Notify</button>
     </div>
   </div>
+
+  <hr style="width: 80%; margin: 60px auto; border: 1px dashed #007acc;" />
+  <h2 style="text-align:center; color:#007acc; margin-bottom:20px;">Live Volunteers Based on Location</h2>
+
+  <div class="volunteer-grid" id="liveVolunteers"></div>
 
   <footer>
     <p>© 2025 SAHARA Community | All rights reserved</p>
@@ -183,12 +148,79 @@
       const card = document.getElementById(id);
       const oldMsg = card.querySelector('.notified-message');
       if (oldMsg) oldMsg.remove();
-
       const msg = document.createElement('div');
       msg.className = 'notified-message';
       msg.textContent = '🚨 Volunteer Notified!';
       card.appendChild(msg);
     }
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD6vqtV6apJ41XKyOjYxEIeIzt_DmaLnq0",
+      authDomain: "sahara-cb829.firebaseapp.com",
+      projectId: "sahara-cb829",
+      storageBucket: "sahara-cb829.appspot.com",
+      messagingSenderId: "245992709744",
+      appId: "1:245992709744:web:a96331ce109d79844fdeb5",
+      measurementId: "G-G5LXE5110B"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    function getDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = 
+        0.5 - Math.cos(dLat)/2 + 
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        (1 - Math.cos(dLon)) / 2;
+      return R * 2 * Math.asin(Math.sqrt(a));
+    }
+
+    async function loadLiveVolunteers(userLat, userLng) {
+      const volunteerGrid = document.getElementById("liveVolunteers");
+      volunteerGrid.innerHTML = "";
+
+      const snapshot = await getDocs(collection(db, "users"));
+      const volunteers = [];
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        if (data.role === "Helper" && data.location?.latitude && data.location?.longitude) {
+          const distance = getDistance(userLat, userLng, data.location.latitude, data.location.longitude);
+          volunteers.push({ ...data, distance });
+        }
+      });
+
+      volunteers.sort((a, b) => a.distance - b.distance);
+
+      volunteers.forEach((v, index) => {
+        const card = document.createElement("div");
+        card.className = "volunteer-card";
+        card.innerHTML = `
+          <h3>${v.name || "Unnamed"}</h3>
+          <p>Karma Points: ${v.karma || 0}</p>
+          <p>Distance: ${v.distance.toFixed(2)} km</p>
+          <button class="notify-button">Emergency Notify</button>
+        `;
+        volunteerGrid.appendChild(card);
+      });
+    }
+
+    navigator.geolocation.getCurrentPosition(pos => {
+      const userLat = pos.coords.latitude;
+      const userLng = pos.coords.longitude;
+      loadLiveVolunteers(userLat, userLng);
+    }, err => {
+      alert("Location access denied. Loading all volunteers without distance filter.");
+      loadLiveVolunteers(0,0);
+    });
   </script>
 
 </body>
