@@ -4,23 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SAHARA Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      font-family: 'Poppins', sans-serif;
       background-color: #f0faff;
       color: #003366;
+      overflow-x: hidden;
     }
 
     .container {
+      flex: 1;
       text-align: center;
       padding: 50px 20px 30px;
+      position: relative;
     }
 
     .container h2 {
       font-size: 2em;
       color: #007acc;
       margin-bottom: 40px;
+      animation: fadeInDown 1s ease-in-out;
     }
 
     .sos-button {
@@ -34,11 +50,14 @@
       font-weight: bold;
       cursor: pointer;
       margin-bottom: 50px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+      transition: transform 0.3s ease;
+      animation: pulse 2s infinite;
     }
 
     .sos-button:hover {
       background-color: #cc0000;
+      transform: scale(1.05);
     }
 
     .cards-wrapper {
@@ -47,38 +66,58 @@
       gap: 40px;
       flex-wrap: wrap;
       margin-bottom: 60px;
+      animation: fadeInUp 1s ease-in-out;
     }
 
     .card {
       background-color: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 102, 170, 0.1);
       width: 280px;
       padding: 20px;
       text-align: center;
+      transform: translateY(0);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background-image: url('https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=800&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
 
-    .card img {
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 15px;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 102, 170, 0.2);
     }
 
     .card button {
+      position: relative;
+      z-index: 2;
       width: 100%;
       padding: 10px;
-      background-color: #007acc;
+      background-color: #00bfff;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 1em;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     .card button:hover {
-      background-color: #005f99;
+      background-color: #008ec7;
     }
 
     footer {
@@ -88,31 +127,56 @@
       color: #003366;
       font-size: 0.9em;
     }
+
+    /* Animations */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+      70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .floating {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 15px 25px;
+      font-weight: bold;
+      color: #007acc;
+      animation: fadeInDown 1s ease;
+    }
   </style>
 </head>
 <body>
 
+  <div class="floating">Live: Dashboard Active</div>
+
   <div class="container">
     <h2>You're not alone — help is just a click away.</h2>
-
     <button class="sos-button" onclick="handleSOS()">SOS</button>
 
     <div class="cards-wrapper">
-      <!-- Profile Card -->
       <div class="card">
-        <img src="images/profile.jpg" alt="Your Profile" />
         <button onclick="viewProfile()">View Your Profile</button>
       </div>
 
-      <!-- Help Others Card -->
       <div class="card">
-        <img src="images/help-others.jpg" alt="Who Needs You" />
         <button onclick="seeWhoNeedsYou()">See Who Needs You</button>
       </div>
 
-      <!-- Leaderboard Card -->
       <div class="card">
-        <img src="images/leaderboard.jpg" alt="Leaderboard" />
         <button onclick="viewLeaderboard()">View Leaderboard</button>
       </div>
     </div>
@@ -124,6 +188,7 @@
 
   <script>
     function handleSOS() {
+      alert("SOS Alert Sent! Help is on the way.");
       window.location.href = "askhelp.html";
     }
 
