@@ -177,14 +177,14 @@
             });
 
             alert("Login successful! Location updated.");
-            window.location.href = "dashboard.html";
+            window.location.href = "messages.html";
           }, () => {
             alert("Login successful (but location not shared).");
-            window.location.href = "dashboard.html";
+            window.location.href = "messages.html";
           });
         } else {
           alert("Login successful (geolocation not supported).");
-          window.location.href = "dashboard.html";
+          window.location.href = "messages.html";
         }
 
       } catch (error) {
