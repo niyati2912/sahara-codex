@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sahara - Human Safety Net</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+        --primary: #0ea5e9;
+        --primary-dark: #0284c7;
+        --secondary: #06b6d4;
+        --accent: #38bdf8;
+        --success: #0284c7;
+        --danger: #60a5fa;
+        --warning: #38bdf8;
+        --dark: #0f172a;
+        --gray-50: #f8fafc;
+        --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
+        --gray-300: #cbd5e1;
+        --gray-400: #94a3b8;
+        --gray-500: #64748b;
+        --gray-600: #475569;
+        --gray-700: #334155;
+        --gray-800: #1e293b;
+        --gray-900: #0f172a;
+        --white: #ffffff;
+        --bg-primary: #f1f5f9;
+        --bg-secondary: #e2e8f0;
+        --bg-card: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.7;
+        background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(14, 165, 233, 0.03) 50%, var(--bg-secondary) 100%);
+        color: var(--text-primary);
+        overflow-x: hidden;
+        min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(14, 165, 233, 0.15);
+        padding: 1rem 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        transition: all 0.3s ease;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo img {
+        width: 60px;
+        height: auto;
+        background: transparent;
+        object-fit: contain;
+    }
+
+    .cta-button {
+        padding: 12px 28px;
+        background: #1d4ed8;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
+    }
+
+    .cta-button:active {
+        transform: translateY(0);
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 6rem 5% 4rem;
+        text-align: center;
+        position: relative;
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(6, 182, 212, 0.1) 50%, rgba(56, 189, 248, 0.05) 100%);
+        border-bottom: 2px solid rgba(14, 165, 233, 0.2);
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 30% 20%, rgba(14, 165, 233, 0.4) 0%, transparent 50%),
+                    radial-gradient(circle at 70% 80%, rgba(6, 182, 212, 0.35) 0%, transparent 50%),
+                    radial-gradient(circle at 10% 90%, rgba(56, 189, 248, 0.25) 0%, transparent 40%);
+        pointer-events: none;
+    }
+
+    .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(2, 2, 3, 0.3);
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 1.25rem;
+        color: black;
+        margin-bottom: 2rem;
+        font-weight: 400;
+    }
+
+    /* Section */
+    section {
+        padding: 4rem 5%;
+        position: relative;
+    }
+
+    section:nth-child(odd) {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(14, 165, 233, 0.04) 100%);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Problems Section */
+    .problems {
+        background: linear-gradient(135deg, var(--danger), #3b82f6, #2563eb);
+        color: white;
+        border-radius: 24px;
+        padding: 4rem;
+        margin-bottom: 4rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .problems::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .problems h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2.5rem;
+        text-align: center;
+        color: white;
+        position: relative;
+        z-index: 2;
+    }
+
+    .problems-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .problem-item {
+        padding: 2rem;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .problem-item:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .problem-item h3 {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .problem-item p {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.6;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Solution Section */
+    .solution {
+        background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+        color: white;
+        padding: 4rem;
+        border-radius: 24px;
+        margin: 4rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .solution::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .solution-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .solution h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
+
+    .solution p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        opacity: 0.95;
+    }
+
+    /* Features Grid */
+    .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 3rem;
+    }
+
+    .feature {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 1.5rem;
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .feature:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+    }
+
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 1rem;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    /* Testimonials */
+    .testimonials-section {
+        padding: 4rem 5%;
+        background: linear-gradient(135deg, var(--success), #1d4ed8, var(--accent));
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .testimonials-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 20% 30%, rgba(14, 165, 233, 0.2) 0%, transparent 40%),
+                    radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.15) 0%, transparent 40%);
+        pointer-events: none;
+    }
+
+    .testimonials-section h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: white;
+        position: relative;
+        z-index: 2;
+    }
+
+    .testimonials {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .testimonial {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 2.5rem;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 2;
+    }
+
+    .testimonial:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .testimonial::before {
+        content: '"';
+        font-size: 4rem;
+        color: rgba(255, 255, 255, 0.6);
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        font-family: Georgia, serif;
+    }
+
+    .testimonial p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 1.5rem;
+        font-style: italic;
+    }
+
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .author-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 1.2rem;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .author-info h4 {
+        color: white;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .author-info span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+        }
+        
+        .problems, .solution {
+            padding: 2rem;
+        }
+        
+        .problems h2, .solution h2, .testimonials-section h2 {
+            font-size: 2rem;
+        }
+        
+        .testimonials {
+            grid-template-columns: 1fr;
+        }
+        
+        section {
+            padding: 2rem 5%;
+        }
+
+        .logo img {
+            width: 50px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .logo img {
+            width: 45px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="1.png" alt="Sahara Logo">
+    </div>
+    <button class="cta-button" onclick="window.location.href='loginsingup.html'">Join the Network</button>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Your Human Safety Net</h1>
+        <p>Connect instantly with verified helpers nearby. Every act of kindness matters, every helper is rewarded.</p>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="problems">
+            <h2>The Challenge We Face</h2>
+            <div class="problems-grid">
+                <div class="problem-item">
+                    <h3>
+                        <span class="stat-number">30%</span>
+                        Avoid Seeking Help
+                    </h3>
+                    <p>In critical moments, many choose isolation over reaching out, often leading to preventable unsafe outcomes and escalated situations.</p>
+                </div>
+                <div class="problem-item">
+                    <h3>
+                        <span class="stat-number">50%</span>
+                        No Trusted Contacts
+                    </h3>
+                    <p>Half of people in urgent situations don't have immediate access to trusted contacts who can provide timely assistance.</p>
+                </div>
+                <div class="problem-item">
+                    <h3>
+                        <span class="stat-number">70%</span>
+                        Fear Stranger Help
+                    </h3>
+                    <p>Without proper verification systems, most people hesitate to seek or accept help from unknown individuals, creating barriers to safety.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="solution">
+            <div class="solution-content">
+                <h2>The Sahara Solution</h2>
+                <p>
+                    Sahara revolutionizes emergency response by connecting people in distress with verified nearby helpers — trained volunteers, local businesses, and NGOs — within seconds. Our transparent Web3 Karma Points system ensures every act of help is rewarded, recorded, and trusted.
+                </p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Instant Connection</h3>
+                        <p>Help arrives in under 3 minutes</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Verified Helpers</h3>
+                        <p>Background-checked volunteers</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Karma Rewards</h3>
+                        <p>Blockchain-based recognition</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials-section">
+    <div class="container">
+        <h2>Stories of Impact</h2>
+        <div class="testimonials">
+            <div class="testimonial">
+                <p>Sahara saved me when I had a panic attack in my hostel. A verified volunteer arrived in just 3 minutes and helped me get through the crisis safely.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">P</div>
+                    <div class="author-info">
+                        <h4>Priya Sharma</h4>
+                        <span>Medical Student, Delhi</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <p>I helped someone stranded at night and earned Karma Points that I could redeem for local services. It feels amazing to be part of a community that values helping others.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">A</div>
+                    <div class="author-info">
+                        <h4>Aman Singh</h4>
+                        <span>Verified Volunteer, Mumbai</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <p>Finally, a platform where helping others is both safe and recognized. The verification process gives me confidence, and the karma system motivates our entire team.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">N</div>
+                    <div class="author-info">
+                        <h4>Neha Gupta</h4>
+                        <span>NGO Coordinator, Bangalore</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

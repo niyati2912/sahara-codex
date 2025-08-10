@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Profile - SAHARA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Toastify CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+
+  <style>
+:root {
+  --primary: #0ea5e9;
+  --primary-dark: #0284c7;
+  --secondary: #06b6d4;
+  --accent: #38bdf8;
+  --success: #0284c7;
+  --danger: #ef4444;
+  --warning: #38bdf8;
+  --dark: #0f172a;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --white: #ffffff;
+  --bg-primary: #f1f5f9;
+  --bg-secondary: #e2e8f0;
+  --bg-card: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.7;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(14, 165, 233, 0.03) 50%, var(--bg-secondary) 100%);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.rule-box { 
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(6, 182, 212, 0.1) 50%, rgba(56, 189, 248, 0.05) 100%);
+  border-bottom: 2px solid rgba(14, 165, 233, 0.2);
+  padding: 25px 20px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.rule-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.rule-box strong {
+  color: var(--primary);
+}
+
+.profile-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  padding: 60px 20px;
+  position: relative;
+}
+
+.profile-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.profile-section > * {
+  position: relative;
+  z-index: 2;
+}
+
+.profile-pic {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(14, 165, 233, 0.2);
+  border: 4px solid rgba(14, 165, 233, 0.1);
+  transition: all 0.3s ease;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05);
+  box-shadow: 0 25px 80px rgba(14, 165, 233, 0.3);
+}
+
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.karma-summary {
+  max-width: 500px;
+  text-align: left;
+}
+
+.karma-summary h3 {
+  color: var(--primary-dark);
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.karma-total {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(14, 165, 233, 0.15);
+  padding: 20px 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(14, 165, 233, 0.1);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: var(--primary-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.karma-total::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.02) 0%, rgba(56, 189, 248, 0.05) 100%);
+  pointer-events: none;
+}
+
+.karma-bar {
+  margin-bottom: 25px;
+}
+
+.karma-bar h4 {
+  margin: 0 0 12px;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.bar {
+  background: rgba(14, 165, 233, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  height: 28px;
+  margin-bottom: 8px;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(14, 165, 233, 0.1);
+}
+
+.bar-fill {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  height: 100%;
+  text-align: right;
+  padding-right: 15px;
+  color: var(--white);
+  line-height: 28px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 12px;
+  position: relative;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.bar-fill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+  animation: shimmer 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+input[type="range"] {
+  width: 100%;
+  cursor: pointer;
+  -webkit-appearance: none;
+  background: transparent;
+  margin-top: 5px;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 0 5px rgba(14, 165, 233, 0.7);
+  transition: background 0.3s ease;
+  position: relative;
+  z-index: 3;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--secondary);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 0 5px rgba(14, 165, 233, 0.7);
+  transition: background 0.3s ease;
+  position: relative;
+  z-index: 3;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: var(--secondary);
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px; /* space between buttons */
+  margin-top: 20px;
+}
+
+.button-group {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.action-button {
+  padding: 14px 24px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+.action-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.action-button:hover::before {
+  left: 100%;
+}
+
+.action-button:hover {
+  background: linear-gradient(135deg, var(--secondary), var(--accent));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(14, 165, 233, 0.3);
+}
+
+footer {
+  text-align: center;
+  padding: 25px 20px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(14, 165, 233, 0.1);
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-section {
+    gap: 30px;
+    padding: 40px 15px;
+  }
+  
+  .profile-pic {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .karma-summary {
+    max-width: 100%;
+  }
+  
+  .karma-summary h3 {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+  
+  .karma-total {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  .button-group {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .rule-box {
+    font-size: 1rem;
+    padding: 20px 15px;
+  }
+  
+  .karma-total {
+    font-size: 1.1rem;
+    padding: 18px 20px;
+  }
+  
+  .button-group {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .action-button {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Rule Box -->
+  <div class="rule-box">
+    For every help you provide, you earn <strong>+10 Karma Points</strong> 💙
+  </div>
+
+  <!-- Profile Info -->
+  <section class="profile-section">
+    <!-- Image -->
+    <div class="profile-pic">
+      <img src="images/user.jpg" alt="Your Photo">
+    </div>
+
+    <!-- Karma Summary -->
+    <div class="karma-summary">
+      <h3>Your Karma Stats</h3>
+      <div class="karma-total" id="total-karma">Total Karma Points: 260</div>
+
+      <div class="karma-bar">
+        <h4>1. Medical Help</h4>
+        <div class="bar">
+          <div class="bar-fill" id="bar-fill-1" style="width: 70%;">70</div>
+        </div>
+        <input type="range" min="0" max="100" value="70" id="slider-1" oninput="updateKarmaBar(1)" />
+      </div>
+
+      <div class="karma-bar">
+        <h4>2. Emotional/Mental Support</h4>
+        <div class="bar">
+          <div class="bar-fill" id="bar-fill-2" style="width: 50%;">50</div>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="slider-2" oninput="updateKarmaBar(2)" />
+      </div>
+
+      <div class="karma-bar">
+        <h4>3. Safety/Escort Support</h4>
+        <div class="bar">
+          <div class="bar-fill" id="bar-fill-3" style="width: 30%;">30</div>
+        </div>
+        <input type="range" min="0" max="100" value="30" id="slider-3" oninput="updateKarmaBar(3)" />
+      </div>
+
+      <div class="karma-bar">
+        <h4>4. Minor Technical Help</h4>
+        <div class="bar">
+          <div class="bar-fill" id="bar-fill-4" style="width: 20%;">20</div>
+        </div>
+        <input type="range" min="0" max="100" value="20" id="slider-4" oninput="updateKarmaBar(4)" />
+      </div>
+
+      <div class="karma-bar">
+        <h4>5. Lost or Stranded Help</h4>
+        <div class="bar">
+          <div class="bar-fill" id="bar-fill-5" style="width: 10%;">10</div>
+        </div>
+        <input type="range" min="0" max="100" value="10" id="slider-5" oninput="updateKarmaBar(5)" />
+      </div>
+
+      <div class="karma-bar">
+        <h4>6. Support for Women or LGBTQ+ Users</h4>
+        <div class="bar">
+          <div class="bar-fill" id="bar-fill-6" style="width: 40%;">40</div>
+        </div>
+        <input type="range" min="0" max="100" value="40" id="slider-6" oninput="updateKarmaBar(6)" />
+      </div>
+
+      <!-- Buttons -->
+      <div class="button-container">
+        <button class="action-button" onclick="editProfile()">Edit Profile</button>
+        <button class="action-button" onclick="redeemPoints()">Redeem Points</button>
+        <button class="action-button" onclick="downloadLetter()">Download Letter</button>
+        <button class="action-button" onclick="viewThanks()">View Thanks</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 SAHARA Community | All rights reserved</p>
+  </footer>
+
+  <!-- Toastify JS -->
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <script>
+    function updateKarmaBar(id) {
+      const slider = document.getElementById(`slider-${id}`);
+      const barFill = document.getElementById(`bar-fill-${id}`);
+      const val = slider.value;
+      barFill.style.width = val + '%';
+      barFill.textContent = val;
+      updateTotalKarma();
+    }
+
+    function updateTotalKarma() {
+      let total = 0;
+      for(let i=1; i<=6; i++) {
+        const slider = document.getElementById(`slider-${i}`);
+        total += parseInt(slider.value);
+      }
+      document.getElementById('total-karma').textContent = `Total Karma Points: ${total}`;
+    }
+
+    function showToast(message) {
+      Toastify({
+        text: message,
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#007acc",
+        stopOnFocus: true,
+      }).showToast();
+    }
+
+    function editProfile() {
+      window.location.href = "edit-profile.html";
+    }
+
+    function redeemPoints() {
+      showToast("Redirecting to reward redemption page...");
+  
+    }
+
+    function downloadLetter() {
+      showToast("Generating recommendation letter...");
+      setTimeout(() => {
+        window.location.href = "pdf.html";
+      }, 1000);
+    }
+
+    function viewThanks() {
+      showToast("Opening your appreciation wall...");
+      
+    }
+
+    updateTotalKarma();
+  </script>
+
+</body>
+</html>
