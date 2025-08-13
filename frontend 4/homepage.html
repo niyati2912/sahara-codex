@@ -1,280 +1,632 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SAHARA – Real-Time Human Safety Net</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: #e0f7fa; 
-      color: #002244;
-      line-height: 1.6;
-    }
-
-    a { text-decoration: none; color: inherit; }
-    img { max-width: 100%; display: block; }
-
-    /* Hero */
-    .hero {
-      background: linear-gradient(rgb(10 226 236 / 38%), rgba(0,30,60,0.6)),
-        url('https://images.unsplash.com/photo-1558981359-78078387720e?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
-      /* This new property fixes the background image on scroll */
-      background-attachment: fixed;
-      
-      height: 90vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-      padding: 0 20px;
-    }
-    .hero img {
-      width: 121px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 10px #00cfff);
-    }
-    .hero h1 {
-      font-size: 4em;
-      margin-bottom: 10px;
-      font-weight: 1200;
-      color: #061159;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SAHARA – Lifeline | Community Safety & Real-Time Help</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand: #0f766e;       /* deep teal */
+    --brand-600:#0d655f;
+    --brand-700:#0a524d;
+    --accent:#fbbf24;       /* amber */
+    --ink:#1f2937;          /* slate-800 */
+    --muted:#6b7280;        /* slate-500 */
+    --bg:#f8fafc;           /* slate-50 */
+    --card:#ffffff;         /* white */
+    --border:#e5e7eb;       /* gray-200 */
+    --focus: #2563eb;       /* blue-600 */
   }
-    .hero p {
-      font-size: 1.2em;
-      max-width: 600px;
-      margin-bottom: 30px;
-      color:#215d85
-    }
-    .join-button {
-      background: #00c0ff;
-      color: white;
-      padding: 14px 32px;
-      font-size: 1.1em;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-    }
-    .join-button:hover {
-      background: #008ec7;
-      transform: translateY(-2px);
-    }
 
-    /* Two-column features */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 40px;
-      max-width: 1000px;
-      margin: 60px auto;
-      padding: 0 20px;
-    }
-    .feature {
-      background: white;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 6px 18px rgba(0, 102, 170, 0.1);
-      text-align: center;
-    }
-    .feature img {
-      height: 80px;
-      margin-bottom: 20px;
-    }
-    .feature h3 {
-      margin-bottom: 12px;
-      color: #004a99;
-    }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;line-height:1.55;}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1200px;margin:auto;padding:0 20px}
 
-    /* Alternating image-text blocks */
-    .block { display: grid; gap: 20px; margin: 60px 0; }
-    .block:nth-child(odd) { grid-template-columns: 1fr 1fr; }
-    .block:nth-child(even) { grid-template-columns: 1fr 1fr; direction: rtl; }
-    .block img { width: 100%; height: auto; border-radius: 10px; }
-    .block .text { padding: 20px; color: #003355; direction: ltr; }
-    .block h2, .block p { margin-bottom: 10px; }
+  /* ================= NAVBAR ================= */
+  .site-header{position:sticky;top:0;z-index:1000;background:var(--brand);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .logo{width:36px;height:36px;border-radius:8px;background:#fff;display:grid;place-items:center;color:var(--brand)}
+  .brand .title{font-weight:700;letter-spacing:.2px}
+  .govline{font-size:.85rem;opacity:.9}
 
-    /* Help Button */
-    .help-circle {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 60px;
-      height: 60px;
-      background: #007acc;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 0.9em;
-      font-weight: bold;
-      box-shadow: 0 5px 15px rgba(0,102,170,0.3);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 1000;
-    }
+  /* nav */
+  .nav{display:flex;align-items:center;gap:8px}
+  .nav > ul{list-style:none;display:flex;gap:8px;margin:0;padding:0}
+  .nav a.link{display:flex;align-items:center;gap:6px;padding:10px 12px;border-radius:8px}
+  .nav a.link:hover,.nav a.link:focus{background:rgba(255,255,255,.12);outline:none}
+  .chev{width:12px;height:12px;display:inline-block;transform:translateY(1px)}
+  .chev::before{content:"▾";font-weight:700}
+  /* dropdowns */
+  .has-sub{position:relative}
+  .dropdown{position:absolute;left:0;top:100%;background:#fff;color:var(--ink);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.08);min-width:240px;padding:8px;display:none}
+  .dropdown a{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:8px}
+  .dropdown a:hover{background:#f3f4f6}
+  .has-sub:focus-within .dropdown,.has-sub:hover .dropdown{display:block}
+  /* mobile */
+  .hamburger{display:none;background:transparent;border:none;color:#fff;font-size:1.25rem;padding:8px}
+  @media (max-width: 980px){
+    .nav > ul{display:none;position:absolute;inset:56px 0 auto 0;background:var(--brand);flex-direction:column;padding:12px;border-top:1px solid rgba(255,255,255,.15)}
+    .nav.open > ul{display:flex}
+    .dropdown{position:static;background:rgba(255,255,255,.1);border:0;box-shadow:none;color:#fff}
+    .dropdown a:hover{background:rgba(255,255,255,.18)}
+    .hamburger{display:block}
+  }
 
-    .help-circle:hover {
-      background: #00c0ff;
-      box-shadow: 0 0 20px rgba(0,192,255,0.8);
-      transform: scale(1.05);
-    }
+  /* alert ticker */
+  .ticker{background:var(--accent);color:#3b2f00;padding:8px 0;overflow:hidden;white-space:nowrap}
+  .ticker .track{display:inline-block;padding-left:100%;animation:marquee 22s linear infinite}
+  @keyframes marquee{to{transform:translateX(-100%)}}
 
-    /* Help Popup */
-    .help-popup {
-      position: fixed;
-      bottom: 100px;
-      right: 24px;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-      width: 260px;
-      font-size: 0.9em;
-      z-index: 999;
-      display: none;
-    }
+  /* ================= HERO ================= */
+  .hero{background:
+      linear-gradient(0deg,rgba(15,118,110,.85),rgba(15,118,110,.85)),
+      url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    color:#fff}
+  .hero .container{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;padding:70px 20px}
+  .hero h1{font-size:2.6rem;margin:4px 0 10px;letter-spacing:.3px}
+  .hero p{opacity:.95;margin:0 0 16px}
+  .cta{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:9px;cursor:pointer;padding:12px 16px;font-weight:600}
+  .btn-primary{background:var(--accent);color:#3b2f00}
+  .btn-primary:hover{filter:brightness(.95)}
+  .btn-ghost{background:rgba(255,255,255,.16);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.22)}
+  .hero-card{background:#fff;color:var(--ink);border-radius:14px;padding:18px;border:1px solid var(--border);box-shadow:0 8px 22px rgba(0,0,0,.08)}
 
-    .help-popup h3 {
-      margin-bottom: 10px;
-      color: #003366;
-    }
+  /* ================= GENERIC ================= */
+  section{padding:72px 0}
+  h2.section-title{font-size:1.9rem;color:var(--brand-700);text-align:center;margin:0 0 10px}
+  .section-lead{max-width:860px;margin:0 auto 32px;text-align:center;color:var(--muted)}
+  .grid{display:grid;gap:20px}
+  .cols-3{grid-template-columns:repeat(3,1fr)}
+  .cols-2{grid-template-columns:repeat(2,1fr)}
+  @media (max-width: 980px){.cols-3,.cols-2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px}
+  .card h3{margin:4px 0 6px}
+  .card .meta{color:var(--muted);font-size:.95rem}
 
-    .help-popup p {
-      margin: 6px 0;
-      color: #0a57ca;
-    }
+  /* feature icons */
+  .feat{display:flex;gap:14px}
+  .feat .ico{width:54px;height:54px;border-radius:12px;background:#ecfeff;display:grid;place-items:center;border:1px solid #cffafe}
+  .feat .ico img{width:28px;height:28px}
+  .list{padding-left:18px}
+  .list li{margin:6px 0}
 
-    .help-popup select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media (max-width: 980px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center}
+  .stat h3{font-size:2rem;color:var(--brand)}
+  .stat p{color:var(--muted);margin:4px 0 0}
 
-    .submit-help {
-      margin-top: 12px;
-      padding: 8px 16px;
-      background-color: #007acc;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9em;
-      transition: background 0.3s ease;
-    }
+  /* resources */
+  .resource-card{display:flex;gap:16px;align-items:flex-start}
+  .resource-card .thumb{width:84px;height:84px;border-radius:10px;overflow:hidden;border:1px solid var(--border);flex-shrink:0}
+  .resource-card .actions a{display:inline-block;margin-right:8px;padding:6px 10px;border-radius:7px;border:1px solid var(--border)}
+  .resource-card .actions a:hover{background:#f3f4f6}
 
-    .submit-help:hover {
-      background-color: #005c9d;
-    }
+  /* accordion */
+  .accordion{max-width:900px;margin:0 auto}
+  .accordion details{border:1px solid var(--border);border-radius:12px;background:#fff;margin-bottom:10px;padding:14px}
+  .accordion summary{cursor:pointer;list-style:none;font-weight:600}
+  .accordion summary::marker{display:none}
+  .accordion summary .arrow{float:right;transition:transform .2s}
+  details[open] summary .arrow{transform:rotate(180deg)}
+  .accordion p{margin:10px 0 0;color:var(--ink)}
 
-    footer {
-      background: #e0f0ff;
-      color: #004a77;
-      text-align: center;
-      padding: 40px 20px;
-      font-size: 0.9em;
-    }
+  /* contacts */
+  .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media (max-width: 980px){.contact-grid{grid-template-columns:1fr}}
+  .contact-card h4{margin:3px 0;color:var(--brand-700)}
+  .contact-card .chip{display:inline-block;background:#ecfccb;border:1px solid #d9f99d;color:#365314;border-radius:999px;padding:4px 10px;font-size:.85rem;margin-right:6px}
 
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.4em; }
-      .hero p { font-size: 1em; }
-      .block, .block:nth-child(even) { grid-template-columns: 1fr; direction: ltr; }
-    }
-  </style>
+  /* footer */
+  footer{background:var(--brand-700);color:#e5f4f2}
+  .foot-top{padding:36px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:18px}
+  @media (max-width: 980px){.foot-grid{grid-template-columns:1fr 1fr}}
+  .foot-grid h5{margin:0 0 8px}
+  .foot-grid a{display:block;color:#d8f3ef;padding:4px 0}
+  .foot-bottom{padding:18px 0;font-size:.9rem;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+  /* focus visible */
+  :focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+</style>
 </head>
 <body>
 
-  <section class="hero">
-    <img src="1.png" alt="SAHARA Logo">
-    <h1>Welcome to SAHARA</h1>
-    <p>A Real-Time Human Safety Net —<br>Powered by Trust, Not Just Tech</p>
-    <button class="join-button" onclick="redirectToLogin()">Join Us</button>
-  </section>
-
-  <section class="features">
-    <div class="feature">
-      <h3>Instant Help</h3>
-      <p>Connect with verified helpers nearby, in real time when you need it most.</p>
+<!-- ================= HEADER / NAV ================= -->
+<header class="site-header" role="banner" aria-label="Global">
+  <div class="topbar container">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><img src="sahara-codex/frontend/images/SAHARA.png" alt=""></div>
+      <div>
+        <div class="title">SAHARA • Lifeline</div>
+        <div class="govline">Community Safety & Real-Time Help</div>
+      </div>
     </div>
-    <div class="feature">
-      <h3>Community‑Driven</h3>
-      <p>Our platform is built on a foundation of human empathy and karma‑based accountability.</p>
-    </div>
-    <div class="feature">
-      <h3>Secure & Verified</h3>
-      <p>Helpers are vetted and rewarded—we prioritize your safety and trust.</p>
-    </div>
-  </section>
 
-  <section class="block">
-    <div class="text">
-      <h2>How It Works</h2>
-      <p>Submit a request, and our system alerts nearby verified helpers who can respond instantly. Every action is tracked and rewarded transparently on our blockchain-backed platform.</p>
-    </div>
-  </section>
-
-  <section class="block">
-    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80" alt="Community">
-    <div class="text">
-      <h2>Impact Stories</h2>
-      <p>From single moms needing roadside rescue to elders needing aid—SAHARA has helped real people in crisis, safely and compassionately.</p>
-    </div>
-  </section>
-
-  <div class="help-circle" id="helpToggle" title="Get Help">Help</div>
-
-  <div id="helpPopup" class="help-popup">
-    <h3>How can we help you?</h3>
-    <p><strong>Phone:</strong> 1234</p>
-    <p><strong>Email:</strong> abc@example.com</p>
-    <label for="issue">Select Issue:</label>
-    <select id="issue">
-      <option value="">-- Choose an option --</option>
-      <option value="safety">Safety Concern</option>
-      <option value="technical">Technical Support</option>
-      <option value="report">Report an Incident</option>
-      <option value="other">Other</option>
-    </select>
-    <button id="submitHelp" class="submit-help">Submit</button>
+    <nav class="nav" role="navigation" aria-label="Primary">
+      <button class="hamburger" aria-label="Toggle menu" id="menuBtn">☰</button>
+      <ul id="menuList">
+        <li class="has-sub">
+          <a class="link" href="#about">About</a>
+          <div class="dropdown" role="menu" aria-label="About menu">
+            <a href="#about">Our mission</a>
+            <a href="#how">How it works</a>
+            <a href="#security">Security & privacy</a>
+          </div>
+        </li>
+        
+        <li class="has-sub">
+          <a class="link" href="#features">Lifeline Features <span class="chev"></span></a>
+          <div class="dropdown" role="menu" aria-label="Features menu">
+            <a href="#features">SOS Alert System</a>
+            <a href="#features">Helper Matching</a>
+            <a href="#features">Volunteer Verification</a>
+            <a href="#features">Emergency Toolkit</a>
+            <a href="#karma">Karma Points</a>
+          </div>
+        </li>
+        <li class="has-sub">
+          <a class="link" href="#tips">Preparedness <span class="chev"></span></a>
+          <div class="dropdown">
+            <a href="#tips">Safety Tips</a>
+            <a href="#resources">Guides & Downloads</a>
+            <a href="#alerts">Community Alerts</a>
+          </div>
+        </li>
+        <li class="has-sub">
+          <a class="link" href="#contact">Contact <span class="chev"></span></a>
+          <div class="dropdown">
+            <a href="#contact">Emergency Contacts</a>
+            <a href="#faq">FAQs</a>
+            <a href="#join">Join as Helper</a>
+          </div>
+        </li>
+        <li>
+          <a class="link" href="dangerzone.html" style="color: #fff; background-color: #ff4d4d; padding: 6px 12px; border-radius: 8px;">
+            Danger Zone
+          </a>
+        </li>
+      
+        
+        <li><a class="link" href="#join" style="background:rgba(255,255,255,.15);border-radius:8px">Join</a></li>
+      </ul>
+    </nav>
   </div>
 
-  <footer>
-    <p>© 2025 SAHARA Community | All rights reserved</p>
-    <p><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a> · <a href="contact.html">Contact Us</a></p>
-  </footer>
+  <!-- live ticker -->
+  <div class="ticker" role="region" aria-label="Live safety ticker">
+    <div class="track">
+      ⚠️ Weather advisory: Heavy rainfall in some areas — avoid flooded roads • 📱 Dial 1234 from the app for SOS • 🛡️ Verified helpers are on duty 24/7 •
+      💊 Keep medicines in waterproof pouches • 🔋 Charge power banks and keep an offline copy of contacts • Dial 5475 for Mental Health Support • 
+    </div>
+  </div>
+</header>
 
-  <script>
-    function redirectToLogin() {
-      window.location.href = "loginsingup.html";
-    }
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container">
+    <div>
+      <h1>Your Real-Time Human Safety Net</h1>
+      <p>SAHARA connects people in need with trusted, verified helpers nearby. From roadside issues and medical support to mental health check-ins and
+        everyday kindness, SAHARA routes the right help to the right person at the right time.</p>
+      <div class="cta">
+        <button class="btn btn-primary" onclick="redirectToLogin()">Create Account</button>
+        <a class="btn btn-ghost" href="#how">How it works</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <strong>Why communities trust SAHARA</strong>
+      <ul class="list">
+        <li>🔔 <b>Instant, location-aware SOS alerts</b> sent to nearby verified responders.</li>
+        <li>🤝 <b>Real-time helper matching</b> ensures relevant, safe assistance for every request.</li>
+        <li>🪪 <b>Volunteer verification</b> via college IDs, KYC, and institutional endorsements.</li>
+        <li>🧰 <b>Emergency resource toolkit</b> for helplines, first-aid, mental health & legal info.</li>
+        <li>🌟 <b>Karma points</b> & badges recognize genuine contributions and impact.</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    const helpToggle = document.getElementById('helpToggle');
-    const helpPopup = document.getElementById('helpPopup');
-    const submitHelp = document.getElementById('submitHelp');
-    const issueSelect = document.getElementById('issue');
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">About SAHARA</h2>
+    <p class="section-lead">
+      SAHARA (Safe And Helpful Aid & Response Alliance) is a community-powered platform inspired by the idea that technology should amplify trust,
+      not replace it. We partner with campuses, neighborhoods, nonprofits, and local agencies to build a reliable safety net that is fast,
+      respectful, and transparent.
+    </p>
+    <div class="grid cols-3">
+      <div class="card feat">
+        <div class="ico"><img src="https://img.icons8.com/fluency/48/alarm.png" alt=""></div>
+        <div>
+          <h3>SOS Alert System</h3>
+          <p class="meta">Firebase notifications • Google Maps API</p>
+          <p>One tap triggers a geo-fenced alert to responders within range. The incident card includes live location, contact preference,
+            and safety notes. Updates appear in a shared timeline so everyone stays aligned until the case is closed.</p>
+        </div>
+      </div>
+      <div class="card feat">
+        <div class="ico"><img src="https://img.icons8.com/fluency/48/conference-call.png" alt=""></div>
+        <div>
+          <h3>Real-Time Helper Matching</h3>
+          <p class="meta">Medical • Mental Health • Pharmacy • Legal • First Aid</p>
+          <p>Our matching engine weighs proximity, skill tags, language, and availability to connect users with the most relevant helper.
+            Automatic hand-offs keep support continuous if a responder becomes unavailable.</p>
+        </div>
+      </div>
+      <div class="card feat">
+        <div class="ico"><img src="https://img.icons8.com/fluency/48/verified-badge.png" alt=""></div>
+        <div>
+          <h3>Volunteer Verification</h3>
+          <p class="meta">College IDs • KYC • NGO/Institutional Credentials</p>
+          <p>To safeguard users, helpers complete identity checks and code-of-conduct training. Tiered verification and visible trust badges
+            set clear expectations and accountability.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    helpToggle.addEventListener('click', () => {
-      helpPopup.style.display = (helpPopup.style.display === 'none' || helpPopup.style.display === '') ? 'block' : 'none';
+<!-- ================= HOW IT WORKS ================= -->
+<section id="how" style="background:#f1f5f9">
+  <div class="container">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-lead">Clear steps from request to resolution. Every action is logged for transparency and post-incident learning.</p>
+
+    <div class="grid cols-3">
+      <div class="card">
+        <h3>1) Request Help</h3>
+        <p>Users tap SOS or choose a category (medical, roadside, personal safety, wellness). They can share live location and optional notes, or request
+          discreet/anonymous support.</p>
+        <ul class="list">
+          <li>Quick presets for frequent needs</li>
+          <li>Multilingual prompts & voice input</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>2) Match & Dispatch</h3>
+        <p>The engine notifies nearby verified helpers and routes the case to the best fit. Helpers can accept, decline, or re-route to specialists.</p>
+        <ul class="list">
+          <li>ETA & route guidance via Maps</li>
+          <li>Two-way updates and safety check-ins</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>3) Resolve & Recognize</h3>
+        <p>Once resolved, users rate safety and outcome. Helpers earn <b>Karma Points</b>, badges, and community recognition. Trends feed into local
+          readiness planning.</p>
+        <ul class="list">
+          <li>Transparent incident timeline</li>
+          <li>Auto-generated thank-you notes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EMERGENCY TOOLKIT / KARMA / SECURITY ================= -->
+<section id="features">
+  <div class="container">
+    <h2 class="section-title">Lifeline Features</h2>
+    <p class="section-lead">Built for real-world reliability: practical tools, clear safeguards, and recognition that encourages good deeds.</p>
+
+    <div class="grid cols-3">
+      <div class="card feat">
+        <div class="ico"><img src="https://img.icons8.com/fluency/48/first-aid-kit.png" alt=""></div>
+        <div>
+          <h3>Emergency Resource Toolkit</h3>
+          <p class="meta">Helplines • First-Aid • Mental Health • Legal</p>
+          <p>Quick links to national and local helplines, step-by-step first-aid, crisis text lines, legal assistance basics, and printable checklists.
+             Works offline for critical pages.</p>
+        </div>
+      </div>
+
+      <div class="card feat" id="karma">
+        <div class="ico"><img src="https://img.icons8.com/fluency/48/prize.png" alt=""></div>
+        <div>
+          <h3>Karma Points System</h3>
+          <p class="meta">Badges • Impact Stats • Redeemable Rewards</p>
+          <p>Helpers earn points for verified actions, training, and mentoring. Communities can redeem points for discounts, certificates, or
+             recommendation letters.</p>
+
+          <!-- ADDED: Yellow button linking to karma.html -->
+          <div style="margin-top:12px;">
+            <a href="karma.html" class="btn btn-primary" style="display:inline-block;">View Karma</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card feat" id="security">
+        <div class="ico"><img src="https://img.icons8.com/fluency/48/security-checked.png" alt=""></div>
+        <div>
+          <h3>Secure & Scalable</h3>
+          <p class="meta">Firebase • Socket.io • Twilio/WhatsApp</p>
+          <p>End-to-end sign-in with strong auth, rate-limited notifications, and encrypted transport. Real-time sockets power alert delivery and status
+             changes; telecom APIs handle fallback SMS/WhatsApp for low-data scenarios.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- stats -->
+    <div class="stats" style="margin-top:18px">
+      <div class="stat"><h3 data-count="5000">0</h3><p>Help Requests Resolved</p></div>
+      <div class="stat"><h3 data-count="2000">0</h3><p>Verified Helpers</p></div>
+      <div class="stat"><h3 data-count="98">0</h3><p>Positive Feedback (%)</p></div>
+      <div class="stat"><h3 data-count="86">0</h3><p>Avg. Response Satisfaction (%)</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SAFETY TIPS ================= -->
+<section id="tips" style="background:#f9fafb">
+  <div class="container">
+    <h2 class="section-title">Safety Preparedness Tips</h2>
+    <p class="section-lead">Simple habits make the biggest difference during uncertain moments. Share these with family, roommates, and neighbors.</p>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>At Home</h3>
+        <ul class="list">
+          <li>Keep a first-aid kit, flashlight, and spare batteries in a visible location.</li>
+          <li>Maintain a small stash of drinking water and dry snacks.</li>
+          <li>Post emergency numbers on the fridge and in your phone favorites.</li>
+          <li>Save the SAHARA SOS widget on your home screen.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>On the Move</h3>
+        <ul class="list">
+          <li>Share your trip ETA with a trusted contact.</li>
+          <li>Carry essential medications and a power bank.</li>
+          <li>Avoid isolated routes late at night; request a virtual walk-along if needed.</li>
+          <li>Know your local 24/7 pharmacy and hospital locations.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMMUNITY ALERTS ================= -->
+<section id="alerts">
+  <div class="container">
+    <h2 class="section-title">Recent Community Alerts</h2>
+    <p class="section-lead">A curated feed of relevant advisories from partner institutions and trusted community moderators.</p>
+
+    <div class="grid cols-3">
+      <article class="card">
+        <h3>Road Closure Near City Hospital</h3>
+        <p class="meta">ETA: Next 36 hours</p>
+        <p>Use the east entrance on Lake Road. Ambulances routed automatically. Expect delays; plan medication pick-ups earlier in the day.</p>
+      </article>
+      <article class="card">
+        <h3>Heat Advisory</h3>
+        <p class="meta">Noon–5 PM this week</p>
+        <p>Stay hydrated; check on elderly neighbors. Cooling centers listed in the Emergency Toolkit &rarr; “Local Resources”.</p>
+      </article>
+      <article class="card">
+        <h3>Scholar Support Hours Expanded</h3>
+        <p class="meta">Campus Wellness Center</p>
+        <p>Peer listening and counseling available till 10 PM daily. Book via the Toolkit &rarr; Mental Health.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESOURCES & DOWNLOADS ================= -->
+<section id="resources" style="background:#f1f5f9">
+  <div class="container">
+    <h2 class="section-title">Resources & Downloads</h2>
+    <p class="section-lead">Guides you can print, share, and keep offline. These are periodically updated with partner inputs.</p>
+
+    <div class="grid cols-2">
+      <div class="card resource-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=400&auto=format&fit=crop" alt=""></div>
+        <div>
+          <h3>Emergency Supply Checklist</h3>
+          <p class="meta">Household kit • 2–3 days • Essentials</p>
+          <p>Comprehensive list covering water, food, medicines, hygiene, tools, and pet needs—plus a compact “go-bag” version.</p>
+          <div class="actions">
+            <a href="#" download>PDF</a><a href="#">Web</a>
+          </div>
+        </div>
+      </div>
+      <div class="card resource-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1585432959449-b1c9c8a9fe16?q=80&w=400&auto=format&fit=crop" alt=""></div>
+        <div>
+          <h3>Family & Roommate Communication Plan</h3>
+          <p class="meta">Fillable card • Contact tree</p>
+          <p>Agree on meeting spots, primary/backup numbers, and a check-in schedule. Keep a printed copy in wallets and backpacks.</p>
+          <div class="actions">
+            <a href="#" download>DOC</a><a href="#">Web</a>
+          </div>
+        </div>
+      </div>
+      <div class="card resource-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1576765608610-c91e86e728fe?q=80&w=400&auto=format&fit=crop" alt=""></div>
+        <div>
+          <h3>First-Aid Quick Cards</h3>
+          <p class="meta">Choking • Bleeding • Burns • CPR basics</p>
+          <p>Pocket-sized reference with step-by-step actions and do-not-dos. Designed for quick scanning under pressure.</p>
+          <div class="actions">
+            <a href="#" download>PDF</a><a href="#">Web</a>
+          </div>
+        </div>
+      </div>
+      <div class="card resource-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1587502536866-1d80867a0f5b?q=80&w=400&auto=format&fit=crop" alt=""></div>
+        <div>
+          <h3>Legal & Reporting Guide</h3>
+          <p class="meta">When to report • Where to get help</p>
+          <p>Plain-language explainers for reporting incidents, seeking legal advice, preserving evidence, and finding pro-bono help.</p>
+          <div class="actions">
+            <a href="#" download>PDF</a><a href="#">Web</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACTS ================= -->
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title">Emergency Contacts</h2>
+    <p class="section-lead">In immediate danger, contact local emergency services first. Use SAHARA to notify nearby helpers while responders are on the way.</p>
+
+    <div class="contact-grid">
+      <div class="card contact-card">
+        <h4>SAHARA Lifeline</h4>
+        <p class="meta">In-app “SOS” or dial 1234</p>
+        <p><span class="chip">24/7</span> <span class="chip">Location-aware</span> <span class="chip">Multi-language</span></p>
+        <p>Direct route to verified helpers, with optional anonymity and chat-only support.</p>
+      </div>
+      <div class="card contact-card">
+        <h4>National Emergency</h4>
+        <p class="meta">Dial 112</p>
+        <p>For life-threatening emergencies, accidents, fire, or crime in progress.</p>
+      </div>
+      <div class="card contact-card">
+        <h4>Mental Health Helpline</h4>
+        <p class="meta">24x7 support</p>
+        <p>Confidential counseling via phone, text, or chat. Find region-specific numbers in the Toolkit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" style="background:#f9fafb">
+  <div class="container">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="accordion">
+      <details>
+        <summary>How are helpers verified? <span class="arrow">▾</span></summary>
+        <p>Helpers submit identity proofs and institutional credentials and complete training. Levels of verification are visible on their profile along with incident history.</p>
+      </details>
+      <details>
+        <summary>Can I request help anonymously? <span class="arrow">▾</span></summary>
+        <p>Yes. You can hide your personal details and use chat-only mode. We still log safety outcomes without exposing identity.</p>
+      </details>
+      <details>
+        <summary>What if the situation escalates? <span class="arrow">▾</span></summary>
+        <p>One tap upgrades an incident to “priority”, alerts additional responders, and offers to call 112. Helpers are trained to step back when professionals take over.</p>
+      </details>
+      <details>
+        <summary>How do Karma Points work? <span class="arrow">▾</span></summary>
+        <p>Points accrue for verified actions and learning modules. Moderators can issue badges; organizations can sponsor rewards and letters of recommendation.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JOIN ================= -->
+<section id="join">
+  <div class="container">
+    <h2 class="section-title">Join the Network</h2>
+    <p class="section-lead">Whether you need a hand or you’re ready to help, your presence strengthens the safety net.</p>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Become a Helper</h3>
+        <p>Verified volunteers keep communities resilient. If you have first-aid, counseling, logistics, legal, or tech skills, we’d love to onboard you.</p>
+        <ul class="list">
+          <li>Flexible shifts · app-based coordination</li>
+          <li>Training modules & micro-credentials</li>
+          <li>Karma Points, badges, impact dashboards</li>
+        </ul>
+        <button class="btn btn-primary" onclick="redirectToLogin()">Apply as Helper</button>
+      </div>
+      <div class="card">
+        <h3>Partner with SAHARA</h3>
+        <p>Colleges, NGOs, housing societies, and local agencies collaborate with SAHARA to standardize response and build trust.</p>
+        <ul class="list">
+          <li>Shared protocols and reporting</li>
+          <li>Anonymous analytics for planning</li>
+          <li>Custom training for your community</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">Contact Partnerships</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer role="contentinfo">
+  <div class="container foot-top">
+    <div class="foot-grid">
+      <div>
+        <h5>SAHARA • Lifeline</h5>
+        <p>Real-time, community-powered help. Built on empathy, trust, and accountability.</p>
+      </div>
+      <div>
+        <h5>Prepare</h5>
+        <a href="#tips">Safety Tips</a>
+        <a href="#resources">Downloads</a>
+        <a href="#alerts">Community Alerts</a>
+      </div>
+      <div>
+        <h5>Platform</h5>
+        <a href="#features">Features</a>
+        <a href="#security">Security</a>
+        <a href="#karma">Karma Points</a>
+      </div>
+      <div>
+        <h5>Connect</h5>
+        <a href="#contact">Emergency Contacts</a>
+        <a href="#faq">FAQs</a>
+        <a href="#join">Join</a>
+      </div>
+    </div>
+  </div>
+  <div class="container foot-bottom">
+    <div>© 2025 SAHARA Community • All rights reserved</div>
+    <div><a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a> · <a href="#">Accessibility</a></div>
+  </div>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script>
+  function redirectToLogin(){ window.location.href = "loginsingup.html"; }
+
+  // mobile menu toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const navEl = document.querySelector('.nav');
+  menuBtn?.addEventListener('click', ()=> navEl.classList.toggle('open'));
+
+  // smooth scroll for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      const target = document.querySelector(a.getAttribute('href'));
+      if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); navEl.classList.remove('open'); }
     });
+  });
 
-    submitHelp.addEventListener('click', () => {
-      const selected = issueSelect.value;
-      if (selected === "") {
-        alert("Please select an issue.");
-      } else {
-        alert("Your request has been submitted! We'll reach out shortly.");
-        issueSelect.value = "";
-        helpPopup.style.display = 'none';
+  // stat counter animation on intersection
+  const counters = document.querySelectorAll('.stat h3');
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        counters.forEach(el=>{
+          const target = +el.dataset.count;
+          let current = 0;
+          const inc = Math.max(1, Math.ceil(target/120));
+          const tick = ()=>{ current += inc; el.textContent = current >= target ? target : current; if(current < target) requestAnimationFrame(tick); };
+          requestAnimationFrame(tick);
+        });
+        io.disconnect();
       }
     });
-  </script>
-
+  }, {threshold:0.35});
+  if(counters.length){ io.observe(document.querySelector('.stats')); }
+</script>
 </body>
 </html>
